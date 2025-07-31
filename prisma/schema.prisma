@@ -7,12 +7,98 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Auth Models
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // For credentials provider
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  shops    Shop[]
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+model Shop {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  items            Item[]
+  sales            Sale[]
+  stockAdjustments StockAdjustment[]
+
+  @@map("shops")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+// Updated existing models with shop relations
 model Item {
   id            Int      @id @default(autoincrement())
   name          String
   description   String?
   category      String
-  sku           String   @unique
+  sku           String
   purchasePrice Decimal  @db.Decimal(10, 2)
   sellingPrice  Decimal  @db.Decimal(10, 2)
   stockQuantity Int
@@ -21,8 +107,16 @@ model Item {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  // Shop relation - will be added during migration
+  shopId String?
+  shop   Shop?   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
   saleItems        SaleItem[]
   stockAdjustments StockAdjustment[]
+
+  // Keep original unique constraint during migration, will update later
+  @@unique([sku])
+  @@map("items")
 }
 
 model Sale {
@@ -34,7 +128,13 @@ model Sale {
   total         Decimal  @db.Decimal(10, 2)
   createdAt     DateTime @default(now())
 
+  // Shop relation - will be added during migration
+  shopId String?
+  shop   Shop?   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
   saleItems SaleItem[]
+
+  @@map("sales")
 }
 
 model SaleItem {
@@ -44,9 +144,11 @@ model SaleItem {
   subtotal  Decimal @db.Decimal(10, 2)
 
   saleId Int
-  sale   Sale @relation(fields: [saleId], references: [id])
+  sale   Sale @relation(fields: [saleId], references: [id], onDelete: Cascade)
   itemId Int
-  item   Item @relation(fields: [itemId], references: [id])
+  item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@map("sale_items")
 }
 
 model StockAdjustment {
@@ -55,6 +157,13 @@ model StockAdjustment {
   reason    String
   createdAt DateTime @default(now())
 
+  // Relations
   itemId Int
-  item   Item @relation(fields: [itemId], references: [id])
+  item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  
+  // Shop relation - will be added during migration
+  shopId String?
+  shop   Shop?   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  @@map("stock_adjustments")
 }

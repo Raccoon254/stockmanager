@@ -142,13 +142,22 @@ export default function SalesForm() {
     }
 
     function updateDiscount(discount) {
-        const numericDiscount = isNaN(discount) ? 0 : Math.max(0, parseFloat(discount))
+        let numericDiscount = parseFloat(discount)
+        if (isNaN(numericDiscount) || numericDiscount < 0) {
+            numericDiscount = 0
+        }
         setSaleData(prev => ({...prev, discount: numericDiscount}))
     }
 
     function calculateTotals() {
         const subtotal = saleData.items.reduce((sum, item) => sum + item.subtotal, 0)
-        const discountAmount = parseFloat(saleData.discount) || 0
+
+        // Ensure discount is always a valid number
+        let discountAmount = parseFloat(saleData.discount)
+        if (isNaN(discountAmount) || discountAmount < 0) {
+            discountAmount = 0
+        }
+
         const total = Math.max(0, subtotal - discountAmount)
 
         return {subtotal, discountAmount, total}
@@ -173,6 +182,7 @@ export default function SalesForm() {
         })
 
         setErrors(validation.errors)
+        console.log('Validation errors:', validation.errors)
         return validation.isValid
     }
 
@@ -180,22 +190,6 @@ export default function SalesForm() {
         e.preventDefault()
 
         console.log("Submitting sale data:", saleData)
-        //{
-        //     "customerName": "Steve",
-        //     "paymentMethod": "Cash",
-        //     "items": [
-        //         {
-        //             "itemId": 2,
-        //             "name": "Samsung",
-        //             "sku": "SKU-1753962517100-yupuz",
-        //             "unitPrice": 1100,
-        //             "quantity": 2,
-        //             "maxQuantity": 40,
-        //             "subtotal": 2200
-        //         }
-        //     ],
-        //     "discount": 0
-        // }
 
         if (!validateSale()) return
 
@@ -208,7 +202,8 @@ export default function SalesForm() {
             const salePayload = {
                 customerName: saleData.customerName.trim() || null,
                 paymentMethod: saleData.paymentMethod,
-                discount: parseFloat(discountAmount.toFixed(2)),  // Ensure it's a number with proper formatting
+                // Now discountAmount is guaranteed to be a valid number
+                discount: parseFloat(discountAmount.toFixed(2)),
                 items: saleData.items.map(item => ({
                     itemId: item.itemId,
                     quantity: item.quantity,
@@ -229,7 +224,7 @@ export default function SalesForm() {
 
             const sale = await response.json()
             setSuccess(true)
-            toast.success(`Sale completed successfully! Total: $${sale.total.toFixed(2)}`)
+            toast.success(`Sale completed successfully! Total: KSH ${parseFloat(sale.total).toFixed(2)}`)
 
             setTimeout(() => {
                 router.push(`/sales/${sale.id}`)
@@ -456,7 +451,7 @@ export default function SalesForm() {
                                             <div className="flex-1">
                                                 <h5 className="font-medium text-gray-900">{item.name}</h5>
                                                 <p className="text-sm text-gray-500">SKU: {item.sku} •
-                                                    ${item.unitPrice.toFixed(2)} each</p>
+                                                    KSH {item.unitPrice.toFixed(2)} each</p>
                                                 {item.quantity > item.maxQuantity && (
                                                     <div className="flex items-center mt-1">
                                                         <AlertTriangle className="h-3 w-3 text-red-500 mr-1"/>
@@ -497,7 +492,7 @@ export default function SalesForm() {
                                                 </div>
 
                                                 <div className="text-right min-w-0 flex-shrink-0">
-                                                    <p className="font-semibold text-gray-900">${item.subtotal.toFixed(2)}</p>
+                                                    <p className="font-semibold text-gray-900">KSH {item.subtotal.toFixed(2)}</p>
                                                 </div>
 
                                                 <button
@@ -530,18 +525,19 @@ export default function SalesForm() {
                                     Discount Amount
                                 </label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-3 text-gray-400">$</span>
+                                    <span className="absolute left-3 top-3 text-gray-400">KSH </span>
                                     <input
                                         type="number"
                                         step="0.01"
                                         min="0"
                                         max={subtotal}
-                                        value={saleData.discount}
-                                        onChange={(e) => updateDiscount(e.target.value === '' ? 0 : parseFloat(e.target.value))}
-                                        className="w-full pl-8 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                                        value={saleData.discount || 0}
+                                        onChange={(e) => updateDiscount(e.target.value)}
+                                        className="w-full pl-14 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                                         placeholder="0.00"
                                     />
                                 </div>
+                                {errors.discount && <p className="mt-1 text-sm text-red-600">{errors.discount}</p>}
                             </div>
 
                             <div className="bg-gray-50 rounded-xl p-6 space-y-3">

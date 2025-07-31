@@ -13,12 +13,16 @@
     "prisma:reset": "prisma migrate reset"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.10.0",
     "@prisma/client": "^6.13.0",
+    "bcryptjs": "^3.0.2",
     "lucide-react": "^0.534.0",
     "next": "15.4.5",
+    "next-auth": "^4.24.11",
     "prisma": "^6.13.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-hot-toast": "^2.5.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

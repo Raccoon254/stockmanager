@@ -215,7 +215,7 @@ export default function SaleDetails({ saleId }) {
                         </div>
                         <div className="text-right">
                           <div className="text-lg font-bold text-gray-900">
-                            ${parseFloat(saleItem.subtotal).toFixed(2)}
+                            KSH {parseFloat(saleItem.subtotal).toFixed(2)}
                           </div>
                         </div>
                       </div>
@@ -226,7 +226,7 @@ export default function SaleDetails({ saleId }) {
                         </div>
                         <div className="text-center">
                           <div className="text-lg font-semibold text-green-600">
-                            ${parseFloat(saleItem.unitPrice).toFixed(2)}
+                            KSH {parseFloat(saleItem.unitPrice).toFixed(2)}
                           </div>
                           <div className="text-xs text-gray-500">Unit Price</div>
                         </div>
@@ -245,10 +245,10 @@ export default function SaleDetails({ saleId }) {
                         </span>
                       </div>
                       <div className="text-center font-semibold text-green-600">
-                        ${parseFloat(saleItem.unitPrice).toFixed(2)}
+                        KSH {parseFloat(saleItem.unitPrice).toFixed(2)}
                       </div>
                       <div className="text-center font-bold text-gray-900">
-                        ${parseFloat(saleItem.subtotal).toFixed(2)}
+                        KSH {parseFloat(saleItem.subtotal).toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -274,20 +274,20 @@ export default function SaleDetails({ saleId }) {
               <div className="space-y-4">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal:</span>
-                  <span>${parseFloat(sale.subtotal).toFixed(2)}</span>
+                  <span>KSH {parseFloat(sale.subtotal).toFixed(2)}</span>
                 </div>
                 
                 {sale.discount > 0 && (
                   <div className="flex justify-between text-red-600">
                     <span>Discount:</span>
-                    <span>-${parseFloat(sale.discount).toFixed(2)}</span>
+                    <span>-KSH {parseFloat(sale.discount).toFixed(2)}</span>
                   </div>
                 )}
                 
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between text-2xl font-bold text-gray-900">
                     <span>Total:</span>
-                    <span className="text-green-600">${parseFloat(sale.total).toFixed(2)}</span>
+                    <span className="text-green-600">KSH {parseFloat(sale.total).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
