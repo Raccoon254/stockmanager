@@ -122,7 +122,7 @@ export async function POST(request) {
       )
     }
 
-    const finalSku = sku || `SKU-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`
+    const finalSku = sku || Math.random().toString(36).substring(2, 10).toUpperCase()
 
     const item = await prisma.item.create({
       data: {

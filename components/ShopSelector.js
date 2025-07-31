@@ -2,7 +2,6 @@
 
 import {useState, useRef, useEffect} from 'react'
 import {useShop} from '@/contexts/ShopContext'
-import CreateShopModal from './CreateShopModal'
 import {
     ChevronDown,
     Store,
@@ -12,10 +11,9 @@ import {
     Loader2
 } from 'lucide-react'
 
-export default function ShopSelector() {
+export default function ShopSelector({ onCreateShop }) {
     const {shops, currentShop, loading, switchShop} = useShop()
     const [isOpen, setIsOpen] = useState(false)
-    const [showCreateModal, setShowCreateModal] = useState(false)
     const dropdownRef = useRef(null)
 
     useEffect(() => {
@@ -104,8 +102,8 @@ export default function ShopSelector() {
                         <div className="border-t border-gray-200 py-1">
                             <button
                                 onClick={() => {
-                                    setIsOpen(false)
-                                    setShowCreateModal(true)
+                                    setIsOpen(false);
+                                    onCreateShop && onCreateShop();
                                 }}
                                 className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-left hover:bg-gray-50 transition-colors duration-200 text-blue-600"
                             >
@@ -116,10 +114,6 @@ export default function ShopSelector() {
                     </div>
                 )}
             </div>
-            <CreateShopModal
-                isOpen={showCreateModal}
-                onClose={() => setShowCreateModal(false)}
-            />
         </div>
     )
 }

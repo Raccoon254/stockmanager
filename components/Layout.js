@@ -181,7 +181,7 @@ export default function Layout({ children }) {
             
             {/* Shop Selector */}
             <div className="px-4 mb-6">
-              <ShopSelector />
+              <ShopSelector onCreateShop={() => setShowCreateShopModal(true)} />
             </div>
 
             <nav className="flex-1 px-4 pb-6 space-y-2">

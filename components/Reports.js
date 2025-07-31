@@ -1,8 +1,9 @@
 'use client'
 
 import {useState, useEffect} from 'react'
+import { useShop } from '@/contexts/ShopContext'
 import {
-    BarChart,
+    BarChart3,
     TrendingUp,
     Coins,
     Package,
@@ -10,11 +11,21 @@ import {
     Download,
     AlertTriangle,
     Star,
-    Target
+    Target,
+    BarChart,
+    Users,
+    Percent,
+    PieChart,
+    ArrowUpRight,
+    ArrowDownRight,
+    DollarSign,
+    ShoppingCart,
+    Store
 } from 'lucide-react'
 import {formatLargeNumber} from "@/lib/formatter";
 
 export default function Reports() {
+    const { currentShop } = useShop()
     const [stats, setStats] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -22,12 +33,14 @@ export default function Reports() {
 
     useEffect(() => {
         fetchReportData()
-    }, [dateRange])
+    }, [currentShop, dateRange])
 
     async function fetchReportData() {
+        if (!currentShop) return
+        
         try {
             setLoading(true)
-            const response = await fetch('/api/dashboard')
+            const response = await fetch(`/api/dashboard?shopId=${currentShop.id}`)
             if (!response.ok) throw new Error('Failed to fetch report data')
 
             const data = await response.json()
@@ -41,28 +54,49 @@ export default function Reports() {
 
     const reportCards = [
         {
-            title: 'Sales This Month',
+            title: 'Total Revenue (Month)',
             value: `KSH ${stats?.totalSalesThisMonth ? Number(stats.totalSalesThisMonth).toFixed(2) : '0.00'}`,
-            icon: Coins,
+            icon: DollarSign,
             gradient: 'from-green-500 to-emerald-500',
             bgGradient: 'from-green-50 to-emerald-50',
-            description: 'Revenue generated this month'
+            description: 'Revenue generated this month',
+            change: 12.5 // This would come from API comparison
+        },
+        {
+            title: 'Total Orders',
+            value: stats?.totalOrders || 0,
+            icon: ShoppingCart,
+            gradient: 'from-blue-500 to-cyan-500',
+            bgGradient: 'from-blue-50 to-cyan-50',
+            description: 'Orders completed this month',
+            change: 8.2
+        },
+        {
+            title: 'Average Order Value',
+            value: `KSH ${stats?.averageOrderValue ? Number(stats.averageOrderValue).toFixed(2) : '0.00'}`,
+            icon: Target,
+            gradient: 'from-purple-500 to-violet-500',
+            bgGradient: 'from-purple-50 to-violet-50',
+            description: 'Average value per order',
+            change: -2.1
+        },
+        {
+            title: 'Profit Margin',
+            value: `${stats?.profitMargins?.margin || 0}%`,
+            icon: Percent,
+            gradient: 'from-yellow-500 to-orange-500',
+            bgGradient: 'from-yellow-50 to-orange-50',
+            description: 'Overall profit margin',
+            change: 3.7
         },
         {
             title: 'Inventory Value',
             value: `KSH ${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
             icon: Package,
-            gradient: 'from-blue-500 to-cyan-500',
-            bgGradient: 'from-blue-50 to-cyan-50',
-            description: 'Current value of all inventory'
-        },
-        {
-            title: 'Active Products',
-            value: stats?.totalItems || 0,
-            icon: Target,
-            gradient: 'from-purple-500 to-violet-500',
-            bgGradient: 'from-purple-50 to-violet-50',
-            description: 'Products currently in stock'
+            gradient: 'from-indigo-500 to-blue-500',
+            bgGradient: 'from-indigo-50 to-blue-50',
+            description: 'Current inventory value',
+            change: 5.3
         },
         {
             title: 'Low Stock Alerts',
@@ -70,7 +104,8 @@ export default function Reports() {
             icon: AlertTriangle,
             gradient: 'from-red-500 to-rose-500',
             bgGradient: 'from-red-50 to-rose-50',
-            description: 'Items requiring restocking'
+            description: 'Items requiring restocking',
+            change: -15.2
         }
     ]
 
@@ -102,13 +137,38 @@ export default function Reports() {
 
     return (
         <div className="space-y-8">
+            {/* Shop Header */}
+            {stats?.shop && (
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    <div className="px-6 py-6 border-b border-gray-100">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
+                                    <Store className="h-6 w-6 text-white" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold text-gray-900">{stats.shop.name}</h2>
+                                    <p className="text-gray-600">Detailed Analytics Report</p>
+                                </div>
+                            </div>
+                            <div className="text-right">
+                                <div className="text-lg font-semibold text-gray-900">
+                                    KSH {Number(stats.totalSalesThisYear || 0).toFixed(0)}
+                                </div>
+                                <div className="text-sm text-gray-500">Annual Revenue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div>
                     <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
                         Reports & Analytics
                     </h1>
                     <p className="mt-2 text-lg text-gray-600">
-                        Business insights and performance metrics for your store
+                        Comprehensive business insights and performance metrics
                     </p>
                 </div>
                 <div className="mt-6 lg:mt-0 flex items-center space-x-4">
@@ -130,8 +190,8 @@ export default function Reports() {
                 </div>
             </div>
 
-            {/* Overview Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Enhanced Overview Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {reportCards.map((card, index) => (
                     <div
                         key={card.title}
@@ -153,9 +213,19 @@ export default function Reports() {
                                         <p className="text-sm font-medium text-gray-600 mb-2">
                                             {card.title}
                                         </p>
-                                        <p className="text-2xl font-bold text-gray-900 mb-2">
+                                        <p className="text-2xl font-bold text-gray-900 mb-1">
                                             {formatLargeNumber(card.value)}
                                         </p>
+                                        <div className="flex items-center mb-2">
+                                            {card.change >= 0 ? (
+                                                <ArrowUpRight className="h-4 w-4 text-green-500 mr-1" />
+                                            ) : (
+                                                <ArrowDownRight className="h-4 w-4 text-red-500 mr-1" />
+                                            )}
+                                            <span className={`text-sm font-medium ${card.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {Math.abs(card.change).toFixed(1)}%
+                                            </span>
+                                        </div>
                                         <p className="text-xs text-gray-500">
                                             {card.description}
                                         </p>
@@ -221,8 +291,11 @@ export default function Reports() {
                                             </div>
                                         </div>
                                         <div className="text-right">
-                                            <div className="text-sm font-semibold text-green-600">
-                                                Top Seller
+                                            <div className="text-lg font-semibold text-green-600">
+                                                KSH {(item.revenue || 0).toFixed(2)}
+                                            </div>
+                                            <div className="text-xs text-gray-500">
+                                                Revenue
                                             </div>
                                         </div>
                                     </div>
@@ -294,12 +367,57 @@ export default function Reports() {
                 </div>
             </div>
 
-            {/* Performance Metrics */}
+            {/* Sales Trend Chart */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
-                            <BarChart className="h-5 w-5 text-white"/>
+                            <BarChart3 className="h-5 w-5 text-white"/>
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-900">
+                            Sales Trend (Last 7 Days)
+                        </h3>
+                    </div>
+                </div>
+                <div className="px-6 py-6">
+                    {stats?.salesTrend && stats.salesTrend.length > 0 ? (
+                        <div className="space-y-4">
+                            {stats.salesTrend.map((day, index) => (
+                                <div key={day.date} className="flex items-center justify-between">
+                                    <div className="flex items-center space-x-3">
+                                        <div className="text-sm font-medium text-gray-600 w-20">
+                                            {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                                        </div>
+                                        <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-xs">
+                                            <div 
+                                                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300"
+                                                style={{ 
+                                                    width: `${Math.max(5, (Number(day.sales) / Math.max(...stats.salesTrend.map(d => Number(d.sales)))) * 100)}%` 
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    <div className="text-sm font-semibold text-gray-900">
+                                        KSH {Number(day.sales).toFixed(2)}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-8">
+                            <BarChart3 className="h-12 w-12 text-gray-300 mx-auto mb-4"/>
+                            <p className="text-gray-500">No sales data available</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Performance Metrics */}
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+                <div className="px-6 py-6 border-b border-gray-100">
+                    <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl">
+                            <PieChart className="h-5 w-5 text-white"/>
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900">
                             Business Performance
@@ -320,10 +438,10 @@ export default function Reports() {
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                             <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
                                 <div className="text-2xl font-bold text-blue-600 mb-2">
-                                    {((stats?.totalSalesThisMonth || 0) / (stats?.totalInventoryValue || 1) * 100).toFixed(1)}%
+                                    {stats?.inventoryTurnover || 0}x
                                 </div>
-                                <div className="text-sm font-medium text-gray-600">Turnover Rate</div>
-                                <div className="text-xs text-gray-500 mt-1">Sales vs Inventory</div>
+                                <div className="text-sm font-medium text-gray-600">Inventory Turnover</div>
+                                <div className="text-xs text-gray-500 mt-1">Monthly rate</div>
                             </div>
 
                             <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
@@ -336,10 +454,10 @@ export default function Reports() {
 
                             <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
                                 <div className="text-2xl font-bold text-purple-600 mb-2">
-                                    {stats?.todaySalesCount || 0}
+                                    {stats?.profitMargins?.margin || 0}%
                                 </div>
-                                <div className="text-sm font-medium text-gray-600">Sales Today</div>
-                                <div className="text-xs text-gray-500 mt-1">Transactions completed</div>
+                                <div className="text-sm font-medium text-gray-600">Profit Margin</div>
+                                <div className="text-xs text-gray-500 mt-1">Current inventory</div>
                             </div>
 
                             <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl">
@@ -353,6 +471,45 @@ export default function Reports() {
                     )}
                 </div>
             </div>
+
+            {/* Low Stock Alerts */}
+            {stats?.lowStockDetails && stats.lowStockDetails.length > 0 && (
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+                    <div className="px-6 py-6 border-b border-gray-100">
+                        <div className="flex items-center space-x-3">
+                            <div className="p-2 bg-gradient-to-r from-red-500 to-rose-500 rounded-xl">
+                                <AlertTriangle className="h-5 w-5 text-white"/>
+                            </div>
+                            <h3 className="text-xl font-semibold text-gray-900">
+                                Critical Stock Alerts
+                            </h3>
+                        </div>
+                    </div>
+                    <div className="px-6 py-6">
+                        <div className="space-y-4">
+                            {stats.lowStockDetails.map((item) => (
+                                <div key={item.id} className="flex items-center justify-between p-4 bg-red-50 rounded-xl border border-red-100">
+                                    <div className="flex items-center space-x-3">
+                                        <AlertTriangle className="h-5 w-5 text-red-500" />
+                                        <div>
+                                            <p className="font-medium text-gray-900">{item.name}</p>
+                                            <p className="text-sm text-gray-500">{item.category}</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="text-lg font-bold text-red-600">
+                                            {item.stockQuantity}
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            Min: {item.minStockLevel}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Quick Actions */}
             <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
