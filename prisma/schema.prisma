@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -14,7 +14,7 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   image         String?
-  password      String?   // For credentials provider
+  password      String? // For credentials provider
   role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -160,7 +160,7 @@ model StockAdjustment {
   // Relations
   itemId Int
   item   Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
-  
+
   // Shop relation - will be added during migration
   shopId String?
   shop   Shop?   @relation(fields: [shopId], references: [id], onDelete: Cascade)
