@@ -12,6 +12,7 @@ import {
     Star,
     Target
 } from 'lucide-react'
+import {formatLargeNumber} from "@/lib/formatter";
 
 export default function Reports() {
     const [stats, setStats] = useState(null)
@@ -40,16 +41,16 @@ export default function Reports() {
 
     const reportCards = [
         {
-            title: 'Total Sales This Month',
-            value: `$${stats?.totalSalesThisMonth ? Number(stats.totalSalesThisMonth).toFixed(2) : '0.00'}`,
+            title: 'Sales This Month',
+            value: `KSH ${stats?.totalSalesThisMonth ? Number(stats.totalSalesThisMonth).toFixed(2) : '0.00'}`,
             icon: Coins,
             gradient: 'from-green-500 to-emerald-500',
             bgGradient: 'from-green-50 to-emerald-50',
             description: 'Revenue generated this month'
         },
         {
-            title: 'Total Inventory Value',
-            value: `$${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
+            title: 'Inventory Value',
+            value: `KSH ${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
             icon: Package,
             gradient: 'from-blue-500 to-cyan-500',
             bgGradient: 'from-blue-50 to-cyan-50',
@@ -152,8 +153,8 @@ export default function Reports() {
                                         <p className="text-sm font-medium text-gray-600 mb-2">
                                             {card.title}
                                         </p>
-                                        <p className="text-3xl font-bold text-gray-900 mb-2">
-                                            {card.value}
+                                        <p className="text-2xl font-bold text-gray-900 mb-2">
+                                            {formatLargeNumber(card.value)}
                                         </p>
                                         <p className="text-xs text-gray-500">
                                             {card.description}
@@ -327,7 +328,7 @@ export default function Reports() {
 
                             <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
                                 <div className="text-2xl font-bold text-green-600 mb-2">
-                                    ${((stats?.totalSalesThisMonth || 0) / 30).toFixed(0)}
+                                    KSH {((stats?.totalSalesThisMonth || 0) / 30).toFixed(0)}
                                 </div>
                                 <div className="text-sm font-medium text-gray-600">Daily Average</div>
                                 <div className="text-xs text-gray-500 mt-1">Revenue per day</div>
