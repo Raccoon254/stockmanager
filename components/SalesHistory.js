@@ -292,11 +292,11 @@ export default function SalesHistory() {
                     
                     <div>
                       <div className="text-lg font-bold text-green-600">
-                        ${parseFloat(sale.total).toFixed(2)}
+                        KSH {parseFloat(sale.total).toFixed(2)}
                       </div>
                       {sale.discount > 0 && (
                         <div className="text-xs text-gray-500">
-                          (${parseFloat(sale.discount).toFixed(2)} discount)
+                          (KSH {parseFloat(sale.discount).toFixed(2)} discount)
                         </div>
                       )}
                     </div>

@@ -278,7 +278,7 @@ export default function Reports() {
                                         </div>
                                         <div className="text-right">
                                           <span className="text-lg font-bold text-green-600">
-                                            ${Number(sale.total).toFixed(2)}
+                                            KSH {Number(sale.total).toFixed(2)}
                                           </span>
                                         </div>
                                     </div>
