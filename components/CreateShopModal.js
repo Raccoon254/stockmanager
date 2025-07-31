@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useShop } from '@/contexts/ShopContext'
-import { X, Store, Loader2 } from 'lucide-react'
+import {X, Store, Loader2, ShoppingBag} from 'lucide-react'
 
 export default function CreateShopModal({ isOpen, onClose }) {
   const { createShop } = useShop()
@@ -54,7 +54,7 @@ export default function CreateShopModal({ isOpen, onClose }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-white/10 rounded-xl">
-                <Store className="h-5 w-5" />
+                <ShoppingBag className="h-5 w-5" />
               </div>
               <h2 className="text-xl font-semibold">Create New Shop</h2>
             </div>
@@ -124,7 +124,7 @@ export default function CreateShopModal({ isOpen, onClose }) {
                 </>
               ) : (
                 <>
-                  <Store className="h-4 w-4 mr-2" />
+                  <ShoppingBag className="h-4 w-4 mr-2" />
                   Create Shop
                 </>
               )}

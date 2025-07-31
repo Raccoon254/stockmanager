@@ -14,12 +14,13 @@ import {
   BarChart, 
   Menu, 
   X,
-  Store,
+  ShoppingBag,
   User,
   LogOut,
   Plus,
   Settings
 } from 'lucide-react'
+import Image from "next/image";
 
 const navigation = [
   {
@@ -64,10 +65,10 @@ export default function Layout({ children }) {
           <div className="flex items-center justify-between bg-white/80 backdrop-blur-xl px-4 py-4 shadow-sm border-b border-white/20">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
-                <Store className="h-5 w-5 text-white" />
+                <ShoppingBag className="h-5 w-5 text-white" />
               </div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                StockManager
+                InvenTree
               </h1>
             </div>
             <div className="flex items-center space-x-2">
@@ -119,10 +120,10 @@ export default function Layout({ children }) {
             <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200/50">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <Store className="h-6 w-6 text-white" />
+                  <ShoppingBag className="h-6 w-6 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  StockManager
+                  InvenTree
                 </h1>
               </div>
               <button
@@ -167,12 +168,12 @@ export default function Layout({ children }) {
           <div className="flex flex-col flex-grow bg-white/80 backdrop-blur-xl border-r border-white/20 shadow-xl">
             <div className="flex items-center px-6 py-8">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Store className="h-7 w-7 text-white" />
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl flex items-center justify-center">
+                  <Image src={"/logo.svg"} alt="InvenTree Logo" width={40} height={40} className="h-8 w-8" />
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                    StockManager
+                    InvenTree
                   </h1>
                   <p className="text-xs text-gray-500 font-medium">Inventory & Sales</p>
                 </div>
@@ -252,8 +253,8 @@ export default function Layout({ children }) {
         </div>
 
         {/* Main content */}
-        <main className="lg:pl-76 lg:pr-4 lg:py-8">
-          <div className="px-4 py-8 sm:px-6 lg:px-0">
+        <main className="lg:pl-76 lg:pr-4 lg:py-4">
+          <div className="px-4 sm:px-6 lg:px-0">
             {children}
           </div>
         </main>

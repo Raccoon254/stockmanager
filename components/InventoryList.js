@@ -13,6 +13,7 @@ import {
   ChevronRight,
     Package
 } from 'lucide-react'
+import {formatLargeNumber} from "@/lib/formatter";
 
 export default function InventoryList() {
   const { currentShop } = useShop()
@@ -120,8 +121,7 @@ export default function InventoryList() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
             Inventory Management
           </h1>
-          <p className="mt-2 text-lg text-gray-600">
-            Track and manage your store's product inventory
+          <p className="mt-2 text-lg text-gray-600">Track and manage your store's product inventory
           </p>
         </div>
         <div className="mt-6 lg:mt-0">
@@ -328,7 +328,7 @@ export default function InventoryList() {
                       </div>
                       
                       <div className="text-sm font-semibold text-green-600">
-                        ${parseFloat(item.sellingPrice).toFixed(2)}
+                        {formatLargeNumber(`KSH ${parseFloat(item.sellingPrice).toFixed(2)}`)}
                       </div>
                       
                       <div className="text-sm font-semibold text-purple-600">

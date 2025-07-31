@@ -8,7 +8,7 @@ import {
     Plus,
     Check,
     Settings,
-    Loader2
+    Loader2, ShoppingBag
 } from 'lucide-react'
 
 export default function ShopSelector({ onCreateShop }) {
@@ -41,7 +41,7 @@ export default function ShopSelector({ onCreateShop }) {
     if (!shops.length) {
         return (
             <div className="flex items-center space-x-2 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <Store className="h-4 w-4 text-yellow-600"/>
+                <ShoppingBag className="h-4 w-4 text-yellow-600"/>
                 <span className="text-sm text-yellow-800">No shops available</span>
             </div>
         )
@@ -54,7 +54,7 @@ export default function ShopSelector({ onCreateShop }) {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex w-full items-center space-x-2 px-3 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-200 min-w-[200px]"
                 >
-                    <Store className="h-4 w-4 text-gray-500"/>
+                    <ShoppingBag className="h-4 w-4 text-gray-500"/>
                     <div className="flex-1 text-left">
                         <div className="text-sm font-medium text-gray-900">
                             {currentShop?.name || 'Select Shop'}
@@ -84,7 +84,7 @@ export default function ShopSelector({ onCreateShop }) {
                                     className="w-full flex items-center justify-between px-3 py-2 text-sm text-left hover:bg-gray-50 transition-colors duration-200"
                                 >
                                     <div className="flex items-center space-x-2">
-                                        <Store className="h-4 w-4 text-gray-400"/>
+                                        <ShoppingBag className="h-4 w-4 text-gray-400"/>
                                         <div>
                                             <div className="font-medium text-gray-900">{shop.name}</div>
                                             <div className="text-xs text-gray-500">

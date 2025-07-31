@@ -15,6 +15,7 @@ import {
   ChevronRight,
   AlertTriangle
 } from 'lucide-react'
+import {formatLargeNumber} from "@/lib/formatter";
 
 export default function SalesHistory() {
   const { currentShop } = useShop()
@@ -235,7 +236,7 @@ export default function SalesHistory() {
                       </div>
                       <div className="text-right">
                         <div className="text-lg font-bold text-green-600 mb-2">
-                          ${parseFloat(sale.total).toFixed(2)}
+                          {formatLargeNumber(`KSH ${parseFloat(sale.total).toFixed(2)}`)}
                         </div>
                         <Link
                           href={`/sales/${sale.id}`}
@@ -299,11 +300,11 @@ export default function SalesHistory() {
                     
                     <div>
                       <div className="text-lg font-bold text-green-600">
-                        KSH {parseFloat(sale.total).toFixed(2)}
+                        {formatLargeNumber(`KSH ${parseFloat(sale.total).toFixed(2)}`)}
                       </div>
                       {sale.discount > 0 && (
                         <div className="text-xs text-gray-500">
-                          (KSH {parseFloat(sale.discount).toFixed(2)} discount)
+                          [{formatLargeNumber(`KSH ${parseFloat(sale.discount).toFixed(2)}`)} discount]
                         </div>
                       )}
                     </div>

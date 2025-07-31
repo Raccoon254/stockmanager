@@ -3,18 +3,24 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  ArrowRight, 
-  BarChart3, 
-  Package, 
-  ShoppingCart, 
-  Users, 
-  Shield, 
+import Image from 'next/image'
+import Navbar from '@/components/Navbar'
+import {
+  ArrowRight,
+  Package,
+  ShoppingCart,
+  Users,
+  Shield,
   Zap,
   Phone,
   Mail,
   MapPin,
-  ExternalLink
+  ExternalLink,
+  Check,
+  Star,
+  Heart,
+  WandSparkles,
+  BarChart
 } from 'lucide-react'
 
 export default function LandingPage() {
@@ -31,50 +37,67 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                <Package className="h-6 w-6 text-white" />
-              </div>
-              <h1 className="text-xl font-bold text-gray-900">Stock Manager</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link
-                href="/auth/signin"
-                className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/signup"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-medium"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Free Badge */}
+          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 border border-blue-200 mb-6">
+            <WandSparkles className="h-4 w-4 text-purple-600 mr-2" />
+            <span className="text-blue-700 font-medium text-sm">100% FREE - No Credit Card Required</span>
+          </div>
+
+          <div className="flex justify-center mb-6">
+            <Image src="/logo.svg" alt="InvenTree Logo" width={80} height={80} priority />
+          </div>
+
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             Manage Your Inventory with
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> Confidence</span>
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"> InvenTree</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-            Streamline your stock management, track sales, and grow your business with our comprehensive inventory management system.
+          
+          <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+            Complete inventory management solution for small to medium businesses. Track stock, manage sales, and get detailed analytics - all for free.
           </p>
+
+          {/* Pricing Info */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-black/5 p-6 mb-8 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <Heart className="h-5 w-5 text-red-500" />
+              <span className="text-lg font-semibold text-gray-900">Currently Free Forever</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+              <div className="flex items-center space-x-2">
+                <Check className="h-4 w-4 text-green-500" />
+                <span>Unlimited shops & products</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="h-4 w-4 text-green-500" />
+                <span>Complete analytics & reports</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="h-4 w-4 text-green-500" />
+                <span>Sales & inventory tracking</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="h-4 w-4 text-green-500" />
+                <span>Multi-user support</span>
+              </div>
+            </div>
+            <div className="p-3 mt-8 border-t border-blue-200">
+              <p className="text-sm text-blue-700">
+                <strong>Future Plans:</strong> We may introduce a one-time lifetime purchase option for premium features, but core functionality will always remain free.
+              </p>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup"
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl group"
             >
-              Start Free Trial
+              Get Started - It's Free!
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
             </Link>
             <Link
@@ -100,7 +123,7 @@ export default function LandingPage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-blue-100 rounded-xl w-fit mb-4">
                 <Package className="h-6 w-6 text-blue-600" />
               </div>
@@ -110,7 +133,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-green-100 rounded-xl w-fit mb-4">
                 <ShoppingCart className="h-6 w-6 text-green-600" />
               </div>
@@ -120,9 +143,9 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-purple-100 rounded-xl w-fit mb-4">
-                <BarChart3 className="h-6 w-6 text-purple-600" />
+                <BarChart className="h-6 w-6 text-purple-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Analytics & Reports</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -130,7 +153,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-yellow-100 rounded-xl w-fit mb-4">
                 <Users className="h-6 w-6 text-yellow-600" />
               </div>
@@ -140,7 +163,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-red-100 rounded-xl w-fit mb-4">
                 <Shield className="h-6 w-6 text-red-600" />
               </div>
@@ -150,7 +173,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-white/20 hover:shadow-xl transition-shadow duration-200">
+            <div className="bg-white p-8 rounded-2xl shadow-xs border border-black/5 hover:shadow-sm transition-shadow duration-200">
               <div className="p-3 bg-indigo-100 rounded-xl w-fit mb-4">
                 <Zap className="h-6 w-6 text-indigo-600" />
               </div>
@@ -163,20 +186,49 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/*/!* Testimonial Section *!/*/}
+      {/*<section className="py-20 px-6 bg-gradient-to-r from-blue-600 to-indigo-600">*/}
+      {/*  <div className="max-w-4xl mx-auto text-center">*/}
+      {/*    <div className="flex justify-center mb-6">*/}
+      {/*      <div className="flex space-x-1">*/}
+      {/*        {[...Array(5)].map((_, i) => (*/}
+      {/*          <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />*/}
+      {/*        ))}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*    <blockquote className="text-xl md:text-2xl font-medium text-white mb-6 leading-relaxed">*/}
+      {/*      "InvenTree has transformed how we handle inventory. The fact that it's completely free makes it even better. Clean interface, powerful features, and reliable performance."*/}
+      {/*    </blockquote>*/}
+      {/*    <div className="text-blue-100">*/}
+      {/*      <p className="font-semibold">Sarah Johnson</p>*/}
+      {/*      <p className="text-sm">Small Business Owner, Nairobi</p>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</section>*/}
+
       {/* CTA Section */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
             Ready to streamline your inventory management?
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of businesses already using Stock Manager to optimize their operations.
+            Join businesses across Kenya already using InvenTree to optimize their operations - completely free, no hidden costs.
           </p>
+          
+          <div className="backdrop-blur-sm rounded-2xl border border-white/20 p-6 mb-8 max-w-md mx-auto">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <span className="text-3xl font-bold text-green-600">KSH 0</span>
+              <span className="text-gray-500">/ forever</span>
+            </div>
+            <p className="text-sm text-gray-600">No trials, no subscriptions, no catches</p>
+          </div>
+
           <Link
             href="/auth/signup"
             className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl group"
           >
-            Get Started Today
+            Start Managing Inventory Today
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
           </Link>
         </div>
@@ -187,11 +239,11 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                  <Package className="h-6 w-6 text-white" />
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="p-1 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
+                  <Image src="/logo.svg" alt="InvenTree Logo" width={32} height={32} />
                 </div>
-                <h3 className="text-xl font-bold">Stock Manager</h3>
+                <h3 className="text-xl font-bold">InvenTree</h3>
               </div>
               <p className="text-gray-300 mb-4 leading-relaxed">
                 Professional inventory management system designed to help businesses of all sizes streamline their operations and grow efficiently.
@@ -253,7 +305,7 @@ export default function LandingPage() {
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; {new Date().getFullYear()} Stock Manager. Built with ❤️ in Kenya.</p>
+            <p>&copy; {new Date().getFullYear()} InvenTree. Built with ❤️ in Kenya.</p>
           </div>
         </div>
       </footer>

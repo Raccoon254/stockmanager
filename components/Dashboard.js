@@ -19,7 +19,7 @@ import {
     Mail,
     Calendar,
     Target,
-    Percent
+    Percent, ShoppingBag
 } from 'lucide-react'
 import {formatLargeNumber} from "@/lib/formatter";
 
@@ -101,7 +101,7 @@ export default function Dashboard() {
         {
             name: 'Average Order Value',
             value: `KSH ${Number(stats?.averageOrderValue || 0).toFixed(2)}`,
-            icon: BarChart3,
+            icon: TrendingUp,
             gradient: 'from-purple-500 to-violet-500',
             shadowColor: 'shadow-purple-500/25',
             bgGradient: 'from-purple-50 to-violet-50',
@@ -140,11 +140,11 @@ export default function Dashboard() {
         <div className="space-y-8">
             {/* Shop Header */}
             {stats?.shop && (
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                                <Store className="h-6 w-6 text-white" />
+                                <ShoppingBag className="h-6 w-6 text-white" />
                             </div>
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900">{stats.shop.name}</h2>
@@ -198,7 +198,7 @@ export default function Dashboard() {
                 {statCards.map((card, index) => (
                     <div
                         key={card.name}
-                        className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-lg ${card.shadowColor} hover:shadow-xl hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 hover:scale-105 border border-white/20`}
+                        className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20`}
                     >
                         <div className="flex items-start justify-between">
                             <div className="flex-1">
@@ -240,8 +240,8 @@ export default function Dashboard() {
                                 </h3>
                             </div>
                             <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                This Week
-              </span>
+                                This Week
+                            </span>
                         </div>
                     </div>
                     <div className="px-6 py-6">
@@ -267,7 +267,7 @@ export default function Dashboard() {
                                         </div>
                                         <div className="text-right">
                                             <div className="text-lg font-semibold text-green-600">
-                                                KSH {(item.revenue || 0).toFixed(2)}
+                                                {formatLargeNumber(`KSH ${(item.revenue || 0).toFixed(2)}`)}
                                             </div>
                                             <div className="text-xs text-gray-500">
                                                 Revenue
@@ -313,7 +313,7 @@ export default function Dashboard() {
                                         </div>
                                         <div className="text-right">
                                           <span className="text-lg font-bold text-green-600">
-                                            KSH {(Number(sale.total) || 0).toFixed(2)}
+                                            {formatLargeNumber(`KSH ${(Number(sale.total) || 0).toFixed(2)}`)}
                                           </span>
                                         </div>
                                     </div>
@@ -334,7 +334,7 @@ export default function Dashboard() {
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
-                            <BarChart3 className="h-5 w-5 text-white"/>
+                            <TrendingUp className="h-5 w-5 text-white"/>
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900">
                             Sales Trend (Last 7 Days)
@@ -360,14 +360,14 @@ export default function Dashboard() {
                                         </div>
                                     </div>
                                     <div className="text-sm font-semibold text-gray-900">
-                                        KSH {Number(day.sales).toFixed(2)}
+                                        {formatLargeNumber(`KSH ${Number(day.sales).toFixed(2)}`)}
                                     </div>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div className="text-center py-8">
-                            <BarChart3 className="h-12 w-12 text-gray-300 mx-auto mb-4"/>
+                            <TrendingUp className="h-12 w-12 text-gray-300 mx-auto mb-4"/>
                             <p className="text-gray-500">No sales data available</p>
                         </div>
                     )}
@@ -390,7 +390,7 @@ export default function Dashboard() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
                             <div className="text-3xl font-bold text-blue-600 mb-2">
-                                KSH {Number(stats?.totalSalesThisMonth || 0).toFixed(0)}
+                                {formatLargeNumber(`KSH ${Number(stats?.totalSalesThisMonth || 0).toFixed(0)}`)}
                             </div>
                             <div className="text-sm font-medium text-gray-600">Sales This Month</div>
                             <div className="text-xs text-gray-500 mt-1">
@@ -399,7 +399,7 @@ export default function Dashboard() {
                         </div>
                         <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
                             <div className="text-3xl font-bold text-green-600 mb-2">
-                                KSH {Number(stats?.totalSalesThisYear || 0).toFixed(0)}
+                                {formatLargeNumber(`KSH ${Number(stats?.totalSalesThisYear || 0).toFixed(0)}`)}
                             </div>
                             <div className="text-sm font-medium text-gray-600">Sales This Year</div>
                             <div className="text-xs text-gray-500 mt-1">
@@ -408,7 +408,7 @@ export default function Dashboard() {
                         </div>
                         <div className="text-center p-6 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl">
                             <div className="text-3xl font-bold text-yellow-600 mb-2">
-                                KSH {Number(stats?.profitMargins?.totalCost || 0).toFixed(0)}
+                                {formatLargeNumber(`KSH ${Number(stats?.profitMargins?.totalCost || 0).toFixed(0)}`)}
                             </div>
                             <div className="text-sm font-medium text-gray-600">Inventory Cost</div>
                             <div className="text-xs text-gray-500 mt-1">
@@ -417,7 +417,7 @@ export default function Dashboard() {
                         </div>
                         <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
                             <div className="text-3xl font-bold text-purple-600 mb-2">
-                                {stats?.totalItems || 0}
+                                {formatLargeNumber(stats?.totalItems || 0)}
                             </div>
                             <div className="text-sm font-medium text-gray-600">Total Products</div>
                             <div className="text-xs text-gray-500 mt-1">

@@ -18,9 +18,8 @@ import {
     PieChart,
     ArrowUpRight,
     ArrowDownRight,
-    DollarSign,
     ShoppingCart,
-    Store
+    Store, ShoppingBag
 } from 'lucide-react'
 import {formatLargeNumber} from "@/lib/formatter";
 
@@ -56,7 +55,7 @@ export default function Reports() {
         {
             title: 'Total Revenue (Month)',
             value: `KSH ${stats?.totalSalesThisMonth ? Number(stats.totalSalesThisMonth).toFixed(2) : '0.00'}`,
-            icon: DollarSign,
+            icon: Coins,
             gradient: 'from-green-500 to-emerald-500',
             bgGradient: 'from-green-50 to-emerald-50',
             description: 'Revenue generated this month',
@@ -144,7 +143,7 @@ export default function Reports() {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                                 <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
-                                    <Store className="h-6 w-6 text-white" />
+                                    <ShoppingBag className="h-6 w-6 text-white" />
                                 </div>
                                 <div>
                                     <h2 className="text-2xl font-bold text-gray-900">{stats.shop.name}</h2>
@@ -292,7 +291,7 @@ export default function Reports() {
                                         </div>
                                         <div className="text-right">
                                             <div className="text-lg font-semibold text-green-600">
-                                                KSH {(item.revenue || 0).toFixed(2)}
+                                                {formatLargeNumber(`KSH ${Number(item.revenue || 0).toFixed(2)}`)}
                                             </div>
                                             <div className="text-xs text-gray-500">
                                                 Revenue
@@ -351,7 +350,7 @@ export default function Reports() {
                                         </div>
                                         <div className="text-right">
                                           <span className="text-lg font-bold text-green-600">
-                                            KSH {Number(sale.total).toFixed(2)}
+                                              {formatLargeNumber(`KSH ${Number(sale.total).toFixed(2)}`)}
                                           </span>
                                         </div>
                                     </div>
@@ -372,7 +371,7 @@ export default function Reports() {
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
-                            <BarChart3 className="h-5 w-5 text-white"/>
+                            <TrendingUp className="h-5 w-5 text-white"/>
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900">
                             Sales Trend (Last 7 Days)
@@ -398,7 +397,7 @@ export default function Reports() {
                                         </div>
                                     </div>
                                     <div className="text-sm font-semibold text-gray-900">
-                                        KSH {Number(day.sales).toFixed(2)}
+                                        {formatLargeNumber(`KSH ${Number(day.sales).toFixed(2)}`)}
                                     </div>
                                 </div>
                             ))}
@@ -446,7 +445,7 @@ export default function Reports() {
 
                             <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
                                 <div className="text-2xl font-bold text-green-600 mb-2">
-                                    KSH {((stats?.totalSalesThisMonth || 0) / 30).toFixed(0)}
+                                    {formatLargeNumber(`KSH ${((stats?.totalSalesThisMonth || 0) / 30).toFixed(0)}`)}
                                 </div>
                                 <div className="text-sm font-medium text-gray-600">Daily Average</div>
                                 <div className="text-xs text-gray-500 mt-1">Revenue per day</div>
