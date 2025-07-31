@@ -1,18 +1,47 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { requireAuth } from '@/lib/auth-utils'
 
 export async function GET(request) {
   try {
+    const user = await requireAuth()
+    if (user instanceof NextResponse) return user
+
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
     const search = searchParams.get('search') || ''
     const startDate = searchParams.get('startDate')
     const endDate = searchParams.get('endDate')
+    const shopId = searchParams.get('shopId')
+
+    if (!shopId) {
+      return NextResponse.json(
+        { error: 'Shop ID is required' },
+        { status: 400 }
+      )
+    }
+
+    // Verify user has access to this shop
+    const shop = await prisma.shop.findFirst({
+      where: {
+        id: shopId,
+        ownerId: user.id,
+        isActive: true
+      }
+    })
+
+    if (!shop) {
+      return NextResponse.json(
+        { error: 'Shop not found or access denied' },
+        { status: 404 }
+      )
+    }
 
     const skip = (page - 1) * limit
 
     const where = {
+      shopId,
       ...(search && {
         customerName: { contains: search, mode: 'insensitive' },
       }),
@@ -61,13 +90,24 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const user = await requireAuth()
+    if (user instanceof NextResponse) return user
+
     const body = await request.json()
     const {
       customerName,
       paymentMethod,
       items,
       discount = 0,
+      shopId,
     } = body
+
+    if (!shopId) {
+      return NextResponse.json(
+        { error: 'Shop ID is required' },
+        { status: 400 }
+      )
+    }
 
     if (!items || items.length === 0) {
       return NextResponse.json(
@@ -76,13 +116,32 @@ export async function POST(request) {
       )
     }
 
+    // Verify user has access to this shop
+    const shop = await prisma.shop.findFirst({
+      where: {
+        id: shopId,
+        ownerId: user.id,
+        isActive: true
+      }
+    })
+
+    if (!shop) {
+      return NextResponse.json(
+        { error: 'Shop not found or access denied' },
+        { status: 404 }
+      )
+    }
+
     const sale = await prisma.$transaction(async (tx) => {
       let subtotal = 0
       const saleItemsData = []
 
       for (const saleItem of items) {
-        const item = await tx.item.findUnique({
-          where: { id: saleItem.itemId },
+        const item = await tx.item.findFirst({
+          where: { 
+            id: saleItem.itemId,
+            shopId: shopId 
+          },
         })
 
         if (!item) {
@@ -123,6 +182,7 @@ export async function POST(request) {
           subtotal,
           discount: discountAmount,
           total,
+          shopId,
           saleItems: {
             create: saleItemsData,
           },

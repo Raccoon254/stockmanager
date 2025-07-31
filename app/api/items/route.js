@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { requireAuth } from '@/lib/auth-utils'
 
 export async function GET(request) {
   try {
+    const user = await requireAuth()
+    if (user instanceof NextResponse) return user
+
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '10')
@@ -10,10 +14,35 @@ export async function GET(request) {
     const category = searchParams.get('category') || ''
     const sortBy = searchParams.get('sortBy') || 'createdAt'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
+    const shopId = searchParams.get('shopId')
+
+    if (!shopId) {
+      return NextResponse.json(
+        { error: 'Shop ID is required' },
+        { status: 400 }
+      )
+    }
+
+    // Verify user has access to this shop
+    const shop = await prisma.shop.findFirst({
+      where: {
+        id: shopId,
+        ownerId: user.id,
+        isActive: true
+      }
+    })
+
+    if (!shop) {
+      return NextResponse.json(
+        { error: 'Shop not found or access denied' },
+        { status: 404 }
+      )
+    }
 
     const skip = (page - 1) * limit
 
     const where = {
+      shopId,
       isActive: true,
       ...(search && {
         OR: [
@@ -54,6 +83,9 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const user = await requireAuth()
+    if (user instanceof NextResponse) return user
+
     const body = await request.json()
     const {
       name,
@@ -64,7 +96,31 @@ export async function POST(request) {
       sellingPrice,
       stockQuantity,
       minStockLevel,
+      shopId,
     } = body
+
+    if (!shopId) {
+      return NextResponse.json(
+        { error: 'Shop ID is required' },
+        { status: 400 }
+      )
+    }
+
+    // Verify user has access to this shop
+    const shop = await prisma.shop.findFirst({
+      where: {
+        id: shopId,
+        ownerId: user.id,
+        isActive: true
+      }
+    })
+
+    if (!shop) {
+      return NextResponse.json(
+        { error: 'Shop not found or access denied' },
+        { status: 404 }
+      )
+    }
 
     const finalSku = sku || `SKU-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`
 
@@ -78,6 +134,7 @@ export async function POST(request) {
         sellingPrice: parseFloat(sellingPrice),
         stockQuantity: parseInt(stockQuantity),
         minStockLevel: parseInt(minStockLevel) || 5,
+        shopId,
       },
     })
 

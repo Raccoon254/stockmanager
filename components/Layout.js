@@ -3,6 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession, signOut } from 'next-auth/react'
+import { useShop } from '@/contexts/ShopContext'
+import ShopSelector from './ShopSelector'
+import CreateShopModal from './CreateShopModal'
 import { 
   Home, 
   Package, 
@@ -10,13 +14,17 @@ import {
   BarChart, 
   Menu, 
   X,
-  Store
+  Store,
+  User,
+  LogOut,
+  Plus,
+  Settings
 } from 'lucide-react'
 
 const navigation = [
   {
     name: 'Dashboard',
-    href: '/',
+    href: '/dashboard',
     icon: Home,
   },
   {
@@ -38,7 +46,15 @@ const navigation = [
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [showCreateShopModal, setShowCreateShopModal] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const { currentShop } = useShop()
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' })
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -54,13 +70,45 @@ export default function Layout({ children }) {
                 StockManager
               </h1>
             </div>
-            <button
-              type="button"
-              className="rounded-xl p-2.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-all duration-200"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <Menu className="h-6 w-6" />
-            </button>
+            <div className="flex items-center space-x-2">
+              {/* User Menu Button */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
+                    <User className="h-4 w-4 text-white" />
+                  </div>
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="p-3 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">{session?.user?.name || 'User'}</p>
+                      <p className="text-xs text-gray-500">{session?.user?.email}</p>
+                    </div>
+                    <div className="p-1">
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full flex items-center space-x-2 px-3 py-2 text-sm text-left hover:bg-gray-50 rounded-md transition-colors duration-200 text-red-600"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <button
+                type="button"
+                className="rounded-xl p-2.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-all duration-200"
+                onClick={() => setSidebarOpen(true)}
+              >
+                <Menu className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -130,6 +178,12 @@ export default function Layout({ children }) {
                 </div>
               </div>
             </div>
+            
+            {/* Shop Selector */}
+            <div className="px-4 mb-6">
+              <ShopSelector />
+            </div>
+
             <nav className="flex-1 px-4 pb-6 space-y-2">
               {navigation.map((item) => {
                 const isActive = pathname === item.href || 
@@ -155,6 +209,45 @@ export default function Layout({ children }) {
                 )
               })}
             </nav>
+            
+            {/* User Menu */}
+            <div className="px-4 py-4 border-t border-gray-200/50">
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="w-full flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
+                    <User className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-medium text-gray-900">{session?.user?.name || 'User'}</p>
+                    <p className="text-xs text-gray-500">{session?.user?.email}</p>
+                  </div>
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg">
+                    <div className="p-1">
+                      <button
+                        onClick={() => setShowCreateShopModal(true)}
+                        className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-left hover:bg-gray-50 rounded-md transition-colors duration-200"
+                      >
+                        <Plus className="h-4 w-4 text-gray-500" />
+                        <span>Create New Shop</span>
+                      </button>
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full flex items-center space-x-3 px-3 py-2 text-sm text-left hover:bg-gray-50 rounded-md transition-colors duration-200 text-red-600"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -165,6 +258,12 @@ export default function Layout({ children }) {
           </div>
         </main>
       </div>
+      
+      {/* Create Shop Modal */}
+      <CreateShopModal 
+        isOpen={showCreateShopModal}
+        onClose={() => setShowCreateShopModal(false)}
+      />
     </div>
   )
 }

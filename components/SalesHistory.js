@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useShop } from '@/contexts/ShopContext'
 import { 
   Plus, 
   Search, 
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react'
 
 export default function SalesHistory() {
+  const { currentShop } = useShop()
   const [sales, setSales] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -26,15 +28,20 @@ export default function SalesHistory() {
   const [pagination, setPagination] = useState({})
 
   useEffect(() => {
-    fetchSales()
-  }, [search, startDate, endDate, page])
+    if (currentShop) {
+      fetchSales()
+    }
+  }, [currentShop, search, startDate, endDate, page])
 
   async function fetchSales() {
+    if (!currentShop) return
+    
     try {
       setLoading(true)
       const params = new URLSearchParams({
         page: page.toString(),
         limit: '10',
+        shopId: currentShop.id,
         ...(search && { search }),
         ...(startDate && { startDate }),
         ...(endDate && { endDate }),

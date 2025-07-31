@@ -1,12 +1,28 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { requireAuth } from '@/lib/auth-utils'
 
 export async function GET(request, { params }) {
   try {
+    const user = await requireAuth()
+    if (user instanceof NextResponse) return user
+
     const { id } = params
-    const item = await prisma.item.findUnique({
-      where: { id: parseInt(id) },
+    const item = await prisma.item.findFirst({
+      where: { 
+        id: parseInt(id),
+        shop: {
+          ownerId: user.id,
+          isActive: true
+        }
+      },
       include: {
+        shop: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
         stockAdjustments: {
           take: 10,
           orderBy: { createdAt: 'desc' },

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useShop } from '@/contexts/ShopContext'
 import { 
   ArrowLeft, 
   Save, 
@@ -33,6 +34,7 @@ const categories = [
 
 export default function ItemForm({ itemId }) {
   const router = useRouter()
+  const { currentShop } = useShop()
   const isEditing = !!itemId
   
   const [loading, setLoading] = useState(isEditing)
@@ -115,7 +117,10 @@ export default function ItemForm({ itemId }) {
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          shopId: currentShop.id
+        })
       })
       
       if (!response.ok) {

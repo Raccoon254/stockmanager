@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useShop } from '@/contexts/ShopContext'
 import { 
   Search, 
   Filter, 
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react'
 
 export default function InventoryList() {
+  const { currentShop } = useShop()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -38,15 +40,20 @@ export default function InventoryList() {
   ]
 
   useEffect(() => {
-    fetchItems()
-  }, [search, category, sortBy, sortOrder, page])
+    if (currentShop) {
+      fetchItems()
+    }
+  }, [currentShop, search, category, sortBy, sortOrder, page])
 
   async function fetchItems() {
+    if (!currentShop) return
+    
     try {
       setLoading(true)
       const params = new URLSearchParams({
         page: page.toString(),
         limit: '10',
+        shopId: currentShop.id,
         ...(search && { search }),
         ...(category && { category }),
         sortBy,

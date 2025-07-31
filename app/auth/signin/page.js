@@ -31,7 +31,7 @@ export default function SignIn() {
         toast.error('Invalid credentials')
       } else {
         toast.success('Signed in successfully!')
-        router.push('/')
+        router.push('/dashboard')
         router.refresh()
       }
     } catch (error) {

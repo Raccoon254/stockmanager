@@ -3,6 +3,7 @@
 import {useState, useEffect} from 'react'
 import {useRouter} from 'next/navigation'
 import Link from 'next/link'
+import { useShop } from '@/contexts/ShopContext'
 import {
     ArrowLeft,
     Plus,
@@ -31,6 +32,7 @@ const paymentMethods = [
 
 export default function SalesForm() {
     const router = useRouter()
+    const { currentShop } = useShop()
 
     const [loading, setLoading] = useState(false)
     const [saving, setSaving] = useState(false)
@@ -61,8 +63,16 @@ export default function SalesForm() {
     }, [searchTerm])
 
     async function searchItems() {
+        if (!currentShop) return
+        
         try {
-            const response = await fetch(`/api/items?search=${encodeURIComponent(searchTerm)}&limit=10`)
+            const params = new URLSearchParams({
+                search: searchTerm,
+                limit: '10',
+                shopId: currentShop.id
+            })
+            
+            const response = await fetch(`/api/items?${params}`)
             if (!response.ok) throw new Error('Failed to search items')
 
             const data = await response.json()
@@ -204,6 +214,7 @@ export default function SalesForm() {
                 paymentMethod: saleData.paymentMethod,
                 // Now discountAmount is guaranteed to be a valid number
                 discount: parseFloat(discountAmount.toFixed(2)),
+                shopId: currentShop.id,
                 items: saleData.items.map(item => ({
                     itemId: item.itemId,
                     quantity: item.quantity,
@@ -403,7 +414,7 @@ export default function SalesForm() {
                                                     </p>
                                                 </div>
                                                 <div className="text-right ml-4">
-                                                    <p className="font-semibold text-green-600 text-lg">${parseFloat(item.sellingPrice).toFixed(2)}</p>
+                                                    <p className="font-semibold text-green-600 text-lg">KSH {parseFloat(item.sellingPrice).toFixed(2)}</p>
                                                     <p className="text-xs text-gray-400">per unit</p>
                                                 </div>
                                                 <div
@@ -528,7 +539,7 @@ export default function SalesForm() {
                                     <span className="absolute left-3 top-3 text-gray-400">KSH </span>
                                     <input
                                         type="number"
-                                        step="0.01"
+                                        step="5"
                                         min="0"
                                         max={subtotal}
                                         value={saleData.discount || 0}
