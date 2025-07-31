@@ -70,7 +70,7 @@ export default function SignUp() {
         toast.error('Account created but sign in failed. Please sign in manually.')
         router.push('/auth/signin')
       } else {
-        router.push('/')
+        router.push('/dashboard')
         router.refresh()
       }
     } catch (error) {
