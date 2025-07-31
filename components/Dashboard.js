@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { 
-  DollarSign, 
+  Coins,
   Package, 
   ShoppingCart, 
   AlertTriangle,
@@ -11,6 +11,31 @@ import {
   Clock,
   ArrowUpRight
 } from 'lucide-react'
+
+function formatLargeNumber(value) {
+if (typeof value !== 'number') {
+  // Check if it's a string with KSH prefix
+  if (typeof value === 'string' && value.toUpperCase().includes('KSH')) {
+    const numericValue = parseFloat(value.toUpperCase().replace('KSH', '').trim())
+    if (isNaN(numericValue)) return value
+
+    // Format the number
+    let formattedValue
+    if (numericValue >= 1e9) formattedValue = `${(numericValue / 1e9).toFixed(1)}B`
+    else if (numericValue >= 1e6) formattedValue = `${(numericValue / 1e6).toFixed(1)}M`
+    else if (numericValue >= 1e3) formattedValue = `${(numericValue / 1e3).toFixed(1)}K`
+    else formattedValue = numericValue.toString()
+
+    // Add KSH prefix back
+    return `KSH ${formattedValue}`
+  }
+  return value
+}
+if (value >= 1e9) return `${(value / 1e9).toFixed(1)}B`
+if (value >= 1e6) return `${(value / 1e6).toFixed(1)}M`
+if (value >= 1e3) return `${(value / 1e3).toFixed(1)}K`
+return value.toString()
+}
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null)
@@ -67,8 +92,8 @@ export default function Dashboard() {
 
   const statCards = [
     {
-      name: 'Total Inventory Value',
-      value: `$${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
+      name: 'Inventory Value',
+      value: `KSH ${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
       icon: Package,
       gradient: 'from-blue-500 to-cyan-500',
       shadowColor: 'shadow-blue-500/25',
@@ -76,8 +101,8 @@ export default function Dashboard() {
     },
     {
       name: "Today's Sales",
-      value: `$${stats?.todaySales?.toFixed(2) || '0.00'}`,
-      icon: DollarSign,
+      value: `KSH ${Number(stats?.todaySales || 0).toFixed(2)}`,
+      icon: Coins,
       gradient: 'from-green-500 to-emerald-500',
       shadowColor: 'shadow-green-500/25',
       bgGradient: 'from-green-50 to-emerald-50',
@@ -130,8 +155,8 @@ export default function Dashboard() {
                 <p className="text-sm font-medium text-gray-600 mb-2">
                   {card.name}
                 </p>
-                <p className="text-3xl font-bold text-gray-900 mb-4">
-                  {card.value}
+                <p className="text-2xl font-bold text-gray-900 mb-4">
+                  {formatLargeNumber(card.value)}
                 </p>
               </div>
               <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
@@ -225,7 +250,7 @@ export default function Dashboard() {
                     </div>
                     <div className="text-right">
                       <span className="text-lg font-bold text-green-600">
-                        ${sale.total.toFixed(2)}
+                        ${(Number(sale.total) || 0).toFixed(2)}
                       </span>
                     </div>
                   </div>
@@ -264,7 +289,7 @@ export default function Dashboard() {
             </div>
             <div className="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
               <div className="text-3xl font-bold text-gray-900 mb-2">
-                ${stats?.totalSalesThisMonth?.toFixed(2) || '0.00'}
+                ${Number(stats?.totalSalesThisMonth || 0).toFixed(2)}
               </div>
               <div className="text-sm font-medium text-gray-600">Sales This Month</div>
             </div>
