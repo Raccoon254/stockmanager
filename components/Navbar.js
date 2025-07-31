@@ -9,14 +9,15 @@ import {
     Menu,
     X,
     ChevronDown,
-    Package,
-    BarChart3,
     ShoppingCart,
     User,
     LogOut,
     Settings,
     Home,
-    Info, BarChart
+    Info,
+    Box,
+    TrendingUpDown,
+    Eclipse
 } from 'lucide-react'
 
 export default function Navbar() {
@@ -32,10 +33,10 @@ export default function Navbar() {
     ]
 
     const privateNavItems = [
-        { name: 'Dashboard', href: '/dashboard', icon: BarChart },
+        { name: 'Dashboard', href: '/dashboard', icon: Eclipse },
         { name: 'Sales', href: '/sales', icon: ShoppingCart },
-        { name: 'Inventory', href: '/inventory', icon: Package },
-        { name: 'Reports', href: '/reports', icon: BarChart3 },
+        { name: 'Inventory', href: '/inventory', icon: Box },
+        { name: 'Reports', href: '/reports', icon: TrendingUpDown },
     ]
 
     const navItems = session ? privateNavItems : publicNavItems
