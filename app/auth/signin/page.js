@@ -64,7 +64,7 @@ export default function SignIn() {
           </div>
 
           {/* Form */}
-          <div className="p-8">
+          <div className="p-4 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email */}
               <div>

@@ -94,12 +94,6 @@ export default function SignUp() {
           {/* Header */}
           <div className="px-8 py-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white">
             <div className="flex items-center space-x-3 mb-2">
-              <Link 
-                href="/"
-                className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
               <div className="p-2 bg-white/10 rounded-xl">
                 <UserPlus className="h-6 w-6" />
               </div>
@@ -109,7 +103,7 @@ export default function SignUp() {
           </div>
 
           {/* Form */}
-          <div className="p-8">
+          <div className="p-4 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div>
