@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { signIn, getSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft } from 'lucide-react'
+import {Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft, User} from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 export default function SignIn() {
@@ -55,14 +55,8 @@ export default function SignIn() {
           {/* Header */}
           <div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
             <div className="flex items-center space-x-3 mb-2">
-              <Link 
-                href="/"
-                className="p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
               <div className="p-2 bg-white/10 rounded-xl">
-                <LogIn className="h-6 w-6" />
+                <User className="h-6 w-6" />
               </div>
               <h1 className="text-2xl font-bold">Sign In</h1>
             </div>
