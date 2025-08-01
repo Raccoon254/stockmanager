@@ -86,8 +86,8 @@ export default function CustomSelect({
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto">
-          {options.length === 0 && !allowCustom ? (
+          <div className="absolute z-50 w-full bottom-full mb-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-60 overflow-y-auto">
+            {options.length === 0 && !allowCustom ? (
             <div className="px-4 py-3 text-gray-500 text-sm">No options available</div>
           ) : (
             <>
