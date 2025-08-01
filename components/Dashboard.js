@@ -82,7 +82,7 @@ export default function Dashboard() {
     const statCards = [
         {
             name: 'Inventory Value',
-            value: `KSH ${stats?.totalInventoryValue?.toFixed(2) || '0.00'}`,
+            value: `KSH ${stats?.totalInventoryValue?.toFixed(2) || '0.00'} `,
             icon: Package,
             gradient: 'from-blue-500 to-cyan-500',
             shadowColor: 'shadow-blue-500/25',
@@ -97,6 +97,15 @@ export default function Dashboard() {
             shadowColor: 'shadow-green-500/25',
             bgGradient: 'from-green-50 to-emerald-50',
             subtext: `${stats?.todaySalesCount || 0} transactions`
+        },
+        {
+            name: "Today's Profit",
+            value: `KSH ${Number(stats?.todayProfit || 0).toFixed(2)}`,
+            icon: TrendingUp,
+            gradient: 'from-lime-500 to-green-500',
+            shadowColor: 'shadow-lime-500/25',
+            bgGradient: 'from-lime-50 to-green-50',
+            subtext: 'Today\'s earnings'
         },
         {
             name: 'Average Order Value',
@@ -124,16 +133,7 @@ export default function Dashboard() {
             shadowColor: 'shadow-yellow-500/25',
             bgGradient: 'from-yellow-50 to-orange-50',
             subtext: 'On current inventory'
-        },
-        {
-            name: 'Inventory Turnover',
-            value: `${stats?.inventoryTurnover || 0}x`,
-            icon: Target,
-            gradient: 'from-indigo-500 to-blue-500',
-            shadowColor: 'shadow-indigo-500/25',
-            bgGradient: 'from-indigo-50 to-blue-50',
-            subtext: 'Monthly turnover rate'
-        },
+        }
     ]
 
     return (

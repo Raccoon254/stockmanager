@@ -57,7 +57,8 @@ export async function GET(request) {
       profitMargins,
       inventoryTurnover,
       lowStockDetails,
-      salesTrend
+      salesTrend,
+      todayProfit
     ] = await Promise.all([
       // Total inventory value for this shop
       prisma.item.aggregate({
@@ -318,7 +319,38 @@ export async function GET(request) {
             sales: result._sum.total || 0
           }))
         })
-      ).then(results => results.reverse())
+      ).then(results => results.reverse()),
+
+      // Today's profit for this shop
+      prisma.sale.findMany({
+        where: {
+          shopId: shopId,
+          createdAt: {
+            gte: today,
+            lt: tomorrow,
+          },
+        },
+        include: {
+          saleItems: {
+            include: {
+              item: {
+                select: {
+                  purchasePrice: true,
+                },
+              },
+            },
+          },
+        },
+      }).then(sales => {
+        return sales.reduce((totalProfit, sale) => {
+          const saleItemsProfit = sale.saleItems.reduce((profit, saleItem) => {
+            const itemProfit = (parseFloat(saleItem.unitPrice) - parseFloat(saleItem.item.purchasePrice)) * saleItem.quantity;
+            return profit + itemProfit;
+          }, 0);
+          const saleProfit = saleItemsProfit - parseFloat(sale.discount);
+          return totalProfit + saleProfit;
+        }, 0);
+      })
     ])
 
     const stats = {
@@ -351,6 +383,7 @@ export async function GET(request) {
         itemCount: sale.saleItems.length,
         items: sale.saleItems.map(si => si.item.name).join(', '),
       })),
+      todayProfit: todayProfit || 0,
     }
 
     return NextResponse.json(stats)

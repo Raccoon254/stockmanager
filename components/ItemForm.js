@@ -369,14 +369,14 @@ export default function ItemForm({ itemId }) {
                   Purchase Price *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-400">$</span>
+                  <span className="absolute left-3 top-3 text-gray-400">KSH</span>
                   <input
                     type="number"
-                    step="0.01"
+                    step="5"
                     min="0"
                     value={formData.purchasePrice}
                     onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
-                    className={`w-full pl-8 pr-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
+                    className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
                       errors.purchasePrice ? 'border-red-300 bg-red-50' : 'border-gray-200'
                     }`}
                     placeholder="0.00"
@@ -390,14 +390,14 @@ export default function ItemForm({ itemId }) {
                   Selling Price *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-400">$</span>
+                  <span className="absolute left-3 top-3 text-gray-400">KSH</span>
                   <input
                     type="number"
-                    step="0.01"
+                    step="5"
                     min="0"
                     value={formData.sellingPrice}
                     onChange={(e) => handleInputChange('sellingPrice', e.target.value)}
-                    className={`w-full pl-8 pr-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
+                    className={`w-full pl-12 pr-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
                       errors.sellingPrice ? 'border-red-300 bg-red-50' : 'border-gray-200'
                     }`}
                     placeholder="0.00"
