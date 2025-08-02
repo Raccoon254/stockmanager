@@ -14,7 +14,7 @@ import {
     User,
     Calendar,
     BarChart3,
-    Plus
+    Plus, BarChart
 } from 'lucide-react'
 import {formatLargeNumber} from '@/lib/formatter'
 
@@ -202,7 +202,7 @@ export default function TodaysSalesDetails() {
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
                     <div className="flex items-center space-x-4">
                         <div className="p-3 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl">
-                            <BarChart3 className="h-6 w-6 text-orange-600"/>
+                            <BarChart className="h-6 w-6 text-orange-600"/>
                         </div>
                         <div>
                             <div className="text-2xl font-bold text-gray-900">

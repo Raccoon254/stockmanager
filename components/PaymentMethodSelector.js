@@ -14,13 +14,19 @@ import {
 } from 'lucide-react'
 
 const paymentMethods = [
-  { 
-    value: 'Cash', 
-    label: 'Cash', 
-    icon: Coins,
-    description: 'Physical cash payment' 
+  {
+    value: 'Mobile Payment',
+    label: 'Mobile Payment',
+    icon: Smartphone,
+    description: 'Payments via mobile ie M-Pesa, Airtel Money'
   },
-  { 
+  {
+    value: 'Cash',
+    label: 'Cash',
+    icon: Coins,
+    description: 'Physical cash payment'
+  },
+  {
     value: 'Credit Card', 
     label: 'Credit Card', 
     icon: CreditCard,
