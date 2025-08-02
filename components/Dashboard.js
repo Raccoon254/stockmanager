@@ -181,35 +181,87 @@ export default function Dashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {statCards.map((card, index) => (
-                    <div
-                        key={card.name}
-                        className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20`}
-                    >
-                        <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-600 mb-2">
-                                    {card.name}
-                                </p>
-                                <p className="text-2xl font-bold text-gray-900 mb-1">
-                                    {formatLargeNumber(card.value)}
-                                </p>
-                                {card.subtext && (
-                                    <p className="text-xs text-gray-500 mb-3">
-                                        {card.subtext}
-                                    </p>
-                                )}
+                {statCards.map((card, index) => {
+                    // Map card names to analytics routes (only existing routes)
+                    const getCardRoute = (cardName) => {
+                        switch (cardName) {
+                            case 'Inventory Value':
+                                return '/analytics/inventory-value'
+                            case "Today's Sales":
+                                return '/analytics/todays-sales'
+                            case 'Low Stock Alert':
+                                return '/analytics/low-stock'
+                            default:
+                                return null // No route available yet
+                        }
+                    }
+
+                    const route = getCardRoute(card.name)
+                    
+                    // Only wrap with Link if route exists
+                    if (route) {
+                        return (
+                            <Link key={card.name} href={route}>
+                                <div
+                                    className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20 cursor-pointer hover:scale-105`}
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex-1">
+                                            <p className="text-sm font-medium text-gray-600 mb-2">
+                                                {card.name}
+                                            </p>
+                                            <p className="text-2xl font-bold text-gray-900 mb-1">
+                                                {formatLargeNumber(card.value)}
+                                            </p>
+                                            {card.subtext && (
+                                                <p className="text-xs text-gray-500 mb-3">
+                                                    {card.subtext}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
+                                            <card.icon className="h-6 w-6 text-white"/>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center text-xs text-gray-500">
+                                        <ArrowUpRight className="h-3 w-3 mr-1"/>
+                                        <span>View details</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        )
+                    } else {
+                        return (
+                            <div
+                                key={card.name}
+                                className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20`}
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium text-gray-600 mb-2">
+                                            {card.name}
+                                        </p>
+                                        <p className="text-2xl font-bold text-gray-900 mb-1">
+                                            {formatLargeNumber(card.value)}
+                                        </p>
+                                        {card.subtext && (
+                                            <p className="text-xs text-gray-500 mb-3">
+                                                {card.subtext}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
+                                        <card.icon className="h-6 w-6 text-white"/>
+                                    </div>
+                                </div>
+                                <div className="flex items-center text-xs text-gray-500 opacity-50">
+                                    <ArrowUpRight className="h-3 w-3 mr-1"/>
+                                    <span>Coming soon</span>
+                                </div>
                             </div>
-                            <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
-                                <card.icon className="h-6 w-6 text-white"/>
-                            </div>
-                        </div>
-                        <div className="flex items-center text-xs text-gray-500">
-                            <ArrowUpRight className="h-3 w-3 mr-1"/>
-                            <span>View details</span>
-                        </div>
-                    </div>
-                ))}
+                        )
+                    }
+                })}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

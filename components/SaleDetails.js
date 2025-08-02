@@ -8,7 +8,7 @@ import {
   Calendar, 
   CreditCard, 
   Package, 
-  Receipt,
+  Paperclip,
   AlertTriangle,
   Loader2
 } from 'lucide-react'
@@ -127,7 +127,7 @@ export default function SaleDetails({ saleId }) {
         {/* Sale Information */}
         <div className="lg:col-span-2 space-y-8">
           {/* Customer & Payment Info */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
             <div className="px-6 py-6 border-b border-gray-100">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
@@ -177,7 +177,9 @@ export default function SaleDetails({ saleId }) {
                   </label>
                   <div className="flex items-center p-3 bg-gray-50 rounded-xl">
                     <Package className="h-5 w-5 text-gray-400 mr-3" />
-                    <span className="text-gray-900">{sale.saleItems.length} items</span>
+                    <span className="text-gray-900">
+                      {sale.saleItems.reduce((total, saleItem) => total + saleItem.quantity, 0)} items
+                    </span>
                   </div>
                 </div>
               </div>
@@ -185,7 +187,7 @@ export default function SaleDetails({ saleId }) {
           </div>
 
           {/* Items Sold */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
             <div className="px-6 py-6 border-b border-gray-100">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
@@ -260,11 +262,11 @@ export default function SaleDetails({ saleId }) {
 
         {/* Sale Summary */}
         <div className="space-y-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
             <div className="px-6 py-6 border-b border-gray-100">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl">
-                  <Receipt className="h-5 w-5 text-white" />
+                  <Paperclip className="h-5 w-5 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900">Sale Summary</h3>
               </div>
@@ -295,7 +297,7 @@ export default function SaleDetails({ saleId }) {
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="text-center">
                   <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                    <Receipt className="h-4 w-4 mr-2" />
+                    <Paperclip className="h-4 w-4 mr-2" />
                     Sale Completed
                   </div>
                 </div>
@@ -304,7 +306,7 @@ export default function SaleDetails({ saleId }) {
           </div>
 
           {/* Actions */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+          <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
             <div className="p-6">
               <div className="space-y-3">
                 <Link
@@ -317,7 +319,7 @@ export default function SaleDetails({ saleId }) {
                 
                 <Link
                   href="/sales/new"
-                  className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl transition-all duration-200"
                 >
                   <Package className="h-4 w-4 mr-2" />
                   New Sale

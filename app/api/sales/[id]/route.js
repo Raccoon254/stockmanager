@@ -4,7 +4,7 @@ import { requireAuth } from '@/lib/auth-utils'
 
 export async function GET(request, { params }) {
   try {
-    const { id } = params
+    const { id } = await params
     const sale = await prisma.sale.findUnique({
       where: { id: parseInt(id) },
       include: {
@@ -38,7 +38,7 @@ export async function PUT(request, { params }) {
     const user = await requireAuth()
     if (user instanceof NextResponse) return user
 
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const {
       customerName,
@@ -185,7 +185,7 @@ export async function DELETE(request, { params }) {
     const user = await requireAuth()
     if (user instanceof NextResponse) return user
 
-    const { id } = params
+    const { id } = await params
 
     const existingSale = await prisma.sale.findUnique({
       where: { id: parseInt(id) },

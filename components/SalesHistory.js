@@ -276,7 +276,7 @@ export default function SalesHistory() {
                                                     {sale.customerName || 'Walk-in Customer'}
                                                 </p>
                                                 <div className="flex items-center space-x-4 text-sm text-gray-500">
-                                                    <div>{sale.saleItems.length} items</div>
+                                                    <div>{sale.saleItems.reduce((total, item) => total + item.quantity, 0)} items</div>
                                                     <div>•</div>
                                                     <div>{sale.paymentMethod}</div>
                                                 </div>
@@ -350,7 +350,7 @@ export default function SalesHistory() {
 
                                         <div>
                                             <div className="text-sm font-medium text-gray-900">
-                                                {sale.saleItems.length} items
+                                                {sale.saleItems.reduce((total, item) => total + item.quantity, 0)} items
                                             </div>
                                             <div className="text-xs text-gray-500">
                                                 {sale.saleItems.slice(0, 2).map(item => item.item.name).join(', ')}
@@ -433,7 +433,7 @@ export default function SalesHistory() {
                                             </p>
                                             <p><strong>Total:</strong> KSH {parseFloat(saleToDelete.total).toFixed(2)}
                                             </p>
-                                            <p><strong>Items:</strong> {saleToDelete.saleItems?.length || 0} items</p>
+                                            <p><strong>Items:</strong> {saleToDelete.saleItems?.reduce((total, item) => total + item.quantity, 0) || 0} items</p>
                                         </div>
                                     </div>
                                 </div>

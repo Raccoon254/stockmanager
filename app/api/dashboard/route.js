@@ -380,7 +380,7 @@ export async function GET(request) {
         customerName: sale.customerName,
         total: sale.total,
         createdAt: sale.createdAt,
-        itemCount: sale.saleItems.length,
+        itemCount: sale.saleItems.reduce((total, item) => total + item.quantity, 0),
         items: sale.saleItems.map(si => si.item.name).join(', '),
       })),
       todayProfit: todayProfit || 0,

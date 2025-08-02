@@ -1,10 +1,11 @@
 import Layout from '@/components/Layout'
 import SaleDetails from '@/components/SaleDetails'
 
-export default function SaleDetailsPage({ params }) {
+export default async function SaleDetailsPage({ params }) {
+  const { id } = await params
   return (
     <Layout>
-      <SaleDetails saleId={params.id} />
+      <SaleDetails saleId={id} />
     </Layout>
   )
 }
