@@ -17,21 +17,8 @@ import {
     Loader2
 } from 'lucide-react'
 import toast from '@/components/Toast'
-import CustomSelect from '@/components/CustomSelect'
+import CategorySelector from '@/components/CategorySelector'
 import {validateItemForm} from '@/lib/validation'
-
-const categories = [
-    'Electronics',
-    'Clothing',
-    'Food & Beverages',
-    'Books',
-    'Health & Beauty',
-    'Home & Garden',
-    'Sports & Outdoors',
-    'Toys & Games',
-    'Automotive',
-    'Other'
-]
 
 export default function ItemForm({itemId}) {
     const router = useRouter()
@@ -262,7 +249,7 @@ export default function ItemForm({itemId}) {
 
             <form onSubmit={handleSubmit} className="space-y-8">
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 relative z-50">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
@@ -313,15 +300,13 @@ export default function ItemForm({itemId}) {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                                     Category *
                                 </label>
-                                <CustomSelect
+                                <CategorySelector
                                     value={formData.category}
                                     onChange={(value) => handleInputChange('category', value)}
-                                    options={categories}
                                     placeholder="Select category"
                                     allowCustom={true}
-                                    customPlaceholder="Add new category"
                                     error={!!errors.category}
-                                    icon={Tag}
+                                    showDescription={true}
                                 />
                                 {errors.category && <p className="mt-1 text-sm text-red-600">{errors.category}</p>}
                             </div>
@@ -348,7 +333,7 @@ export default function ItemForm({itemId}) {
                 </div>
 
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
@@ -488,7 +473,7 @@ export default function ItemForm({itemId}) {
                                 type="button"
                                 onClick={handleDelete}
                                 disabled={deleting || saving}
-                                className="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-xl shadow-lg hover:bg-red-700 hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="inline-flex items-center px-6 py-3 bg-red-600 text-white font-medium rounded-xl shadow-md hover:bg-red-700 hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {deleting ? (
                                     <>
@@ -515,7 +500,7 @@ export default function ItemForm({itemId}) {
                         <button
                             type="submit"
                             disabled={saving || success}
-                            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {saving ? (
                                 <>

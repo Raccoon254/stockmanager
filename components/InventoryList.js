@@ -14,6 +14,7 @@ import {
     Package
 } from 'lucide-react'
 import {formatLargeNumber} from "@/lib/formatter";
+import CategorySelector from '@/components/CategorySelector'
 
 export default function InventoryList() {
   const { currentShop } = useShop()
@@ -27,18 +28,6 @@ export default function InventoryList() {
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState({})
 
-  const categories = [
-    'Electronics',
-    'Clothing',
-    'Food & Beverages',
-    'Books',
-    'Health & Beauty',
-    'Home & Garden',
-    'Sports & Outdoors',
-    'Toys & Games',
-    'Automotive',
-    'Other'
-  ]
 
   useEffect(() => {
     if (currentShop) {
@@ -79,10 +68,6 @@ export default function InventoryList() {
     setPage(1)
   }
 
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value)
-    setPage(1)
-  }
 
   const handleSort = (field) => {
     if (sortBy === field) {
@@ -151,20 +136,19 @@ export default function InventoryList() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
-                <Filter className="h-4 w-4 text-gray-500 mr-3" />
-                <select
+              <div className="w-64">
+                <CategorySelector
                   value={category}
-                  onChange={handleCategoryChange}
-                  className="bg-transparent border-none text-sm font-medium text-gray-700 focus:ring-0 focus:outline-none"
-                >
-                  <option value="">All Categories</option>
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) => {
+                    setCategory(value === "All Categories" ? "" : value)
+                    setPage(1)
+                  }}
+                  placeholder="All Categories"
+                  allowCustom={false}
+                  showDescription={false}
+                  className="text-sm"
+                  includeAllOption={true}
+                />
               </div>
             </div>
           </div>
