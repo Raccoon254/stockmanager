@@ -138,7 +138,7 @@ export default function Reports() {
         <div className="space-y-8">
             {/* Shop Header */}
             {stats?.shop && (
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
@@ -182,7 +182,7 @@ export default function Reports() {
                         <option value="thisYear">This Year</option>
                     </select>
                     <button
-                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl transition-all duration-200">
                         <Download className="h-4 w-4 mr-2"/>
                         Export
                     </button>
@@ -194,7 +194,7 @@ export default function Reports() {
                 {reportCards.map((card, index) => (
                     <div
                         key={card.title}
-                        className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-xl transition-all duration-300 hover:scale-105`}
+                        className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/20 hover:shadow-xl transition-all duration-300 hover:scale-105`}
                     >
                         {loading ? (
                             <div className="animate-pulse">
@@ -230,7 +230,7 @@ export default function Reports() {
                                         </p>
                                     </div>
                                     <div
-                                        className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
+                                        className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-md`}>
                                         <card.icon className="h-6 w-6 text-white"/>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@ export default function Reports() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Top Selling Items */}
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
@@ -311,7 +311,7 @@ export default function Reports() {
 
                 {/* Recent Activity */}
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl">
@@ -367,7 +367,7 @@ export default function Reports() {
             </div>
 
             {/* Sales Trend Chart */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
@@ -412,7 +412,7 @@ export default function Reports() {
             </div>
 
             {/* Performance Metrics */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl">
@@ -473,7 +473,7 @@ export default function Reports() {
 
             {/* Low Stock Alerts */}
             {stats?.lowStockDetails && stats.lowStockDetails.length > 0 && (
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-red-500 to-rose-500 rounded-xl">

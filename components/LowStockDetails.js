@@ -138,7 +138,7 @@ export default function LowStockDetails() {
         <div className="mt-6 lg:mt-0">
           <Link
             href="/inventory"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-md shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
           >
             <Package className="h-5 w-5 mr-2" />
             Manage Inventory
@@ -148,7 +148,7 @@ export default function LowStockDetails() {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-r from-red-100 to-red-200 rounded-xl">
               <AlertTriangle className="h-6 w-6 text-red-600" />
@@ -160,7 +160,7 @@ export default function LowStockDetails() {
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-r from-blue-100 to-blue-200 rounded-xl">
               <Package className="h-6 w-6 text-blue-600" />
@@ -172,7 +172,7 @@ export default function LowStockDetails() {
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-r from-green-100 to-green-200 rounded-xl">
               <TrendingDown className="h-6 w-6 text-green-600" />
@@ -186,7 +186,7 @@ export default function LowStockDetails() {
           </div>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
           <div className="flex items-center space-x-4">
             <div className="p-3 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl">
               <ShoppingCart className="h-6 w-6 text-orange-600" />
@@ -202,7 +202,7 @@ export default function LowStockDetails() {
       </div>
 
       {/* Low Stock Items */}
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
         <div className="px-6 py-6 border-b border-gray-100">
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-gradient-to-r from-red-500 to-rose-500 rounded-xl">

@@ -281,7 +281,7 @@ export default function EditSaleForm({ saleId }) {
                         Edit Sale
                     </h1>
                 </div>
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
                     <div className="flex items-center justify-center">
                         <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
                         <span className="ml-2 text-gray-600">Loading sale data...</span>
@@ -342,7 +342,7 @@ export default function EditSaleForm({ saleId }) {
 
             <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Customer & Payment Info */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
@@ -390,7 +390,7 @@ export default function EditSaleForm({ saleId }) {
                 </div>
 
                 {/* Item Search & Selection */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
@@ -451,7 +451,7 @@ export default function EditSaleForm({ saleId }) {
                             )}
 
                             {showSearch && searchResults.length === 0 && searchTerm.length >= 2 && (
-                                <div className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-6">
+                                <div className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-md p-6">
                                     <div className="text-center">
                                         <Package className="h-12 w-12 text-gray-300 mx-auto mb-3"/>
                                         <p className="text-gray-500 font-medium">No items found matching "{searchTerm}"</p>
@@ -461,7 +461,7 @@ export default function EditSaleForm({ saleId }) {
                             )}
 
                             {searchTerm.length > 0 && searchTerm.length < 2 && (
-                                <div className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-4">
+                                <div className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-md p-4">
                                     <p className="text-gray-500 text-center text-sm">Type at least 2 characters to search...</p>
                                 </div>
                             )}
@@ -539,7 +539,7 @@ export default function EditSaleForm({ saleId }) {
 
                 {/* Sale Summary */}
                 {saleData.items.length > 0 && (
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                         <div className="px-6 py-6 border-b border-gray-100">
                             <h3 className="text-xl font-semibold text-gray-900">Sale Summary</h3>
                         </div>
@@ -598,7 +598,7 @@ export default function EditSaleForm({ saleId }) {
                     <button
                         type="submit"
                         disabled={saving || success || saleData.items.length === 0}
-                        className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {saving ? (
                             <>

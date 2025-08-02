@@ -104,7 +104,7 @@ export function ToastContainer() {
         return (
           <div
             key={toast.id}
-            className={`${config.bgColor} ${config.textColor} rounded-xl shadow-lg border ${config.borderColor} p-4 transform transition-all duration-300 ease-in-out animate-slide-in`}
+            className={`${config.bgColor} ${config.textColor} rounded-xl shadow-md border ${config.borderColor} p-4 transform transition-all duration-300 ease-in-out animate-slide-in`}
           >
             <div className="flex items-start">
               <div className="flex-shrink-0">

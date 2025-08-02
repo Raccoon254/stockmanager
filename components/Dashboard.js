@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import {formatLargeNumber} from "@/lib/formatter";
+import DashboardSkeleton from "@/components/DashboardSkeleton";
 
 export default function Dashboard() {
     const { currentShop } = useShop()
@@ -46,18 +47,7 @@ export default function Dashboard() {
     }, [currentShop])
 
     if (loading) {
-        return (
-            <div className="space-y-8">
-                <div className="animate-pulse">
-                    <div className="h-10 bg-gradient-to-r from-gray-200 to-gray-300 rounded-xl mb-8"></div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        {[...Array(4)].map((_, i) => (
-                            <div key={i} className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl shadow-sm h-32"></div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        )
+        return <DashboardSkeleton />;
     }
 
     if (error) {
@@ -191,6 +181,8 @@ export default function Dashboard() {
                                 return '/analytics/todays-sales'
                             case 'Low Stock Alert':
                                 return '/analytics/low-stock'
+                            case "Today's Profit":
+                                return '/analytics/todays-profit'
                             default:
                                 return null // No route available yet
                         }
@@ -203,7 +195,7 @@ export default function Dashboard() {
                         return (
                             <Link key={card.name} href={route}>
                                 <div
-                                    className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20 cursor-pointer hover:scale-105`}
+                                    className={`group relative bg-gradient-to-br backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-md transition-all duration-300 border border-white/20 cursor-pointer hover:scale-105`}
                                 >
                                     <div className="flex items-start justify-between">
                                         <div className="flex-1">
@@ -219,7 +211,7 @@ export default function Dashboard() {
                                                 </p>
                                             )}
                                         </div>
-                                        <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
+                                        <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-md`}>
                                             <card.icon className="h-6 w-6 text-white"/>
                                         </div>
                                     </div>
@@ -234,7 +226,7 @@ export default function Dashboard() {
                         return (
                             <div
                                 key={card.name}
-                                className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-lg hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20`}
+                                className={`group relative bg-gradient-to-br ${card.bgGradient} backdrop-blur-sm rounded-2xl p-6 shadow-md ${card.shadowColor} hover:shadow-md hover:shadow-${card.shadowColor.split('/')[0]}/30 transition-all duration-300 border border-white/20`}
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
@@ -250,7 +242,7 @@ export default function Dashboard() {
                                             </p>
                                         )}
                                     </div>
-                                    <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-lg`}>
+                                    <div className={`flex-shrink-0 p-3 rounded-xl bg-gradient-to-r ${card.gradient} shadow-md`}>
                                         <card.icon className="h-6 w-6 text-white"/>
                                     </div>
                                 </div>
@@ -266,7 +258,7 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
@@ -324,7 +316,7 @@ export default function Dashboard() {
                 </div>
 
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl">
@@ -368,7 +360,7 @@ export default function Dashboard() {
             </div>
 
             {/* Sales Trend Chart */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
@@ -413,7 +405,7 @@ export default function Dashboard() {
             </div>
 
             {/* Enhanced Quick Overview */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                 <div className="px-6 py-6 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
                         <div className="p-2 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl">
@@ -468,7 +460,7 @@ export default function Dashboard() {
 
             {/* Low Stock Alerts */}
             {stats?.lowStockDetails && stats.lowStockDetails.length > 0 && (
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-red-500 to-rose-500 rounded-xl">

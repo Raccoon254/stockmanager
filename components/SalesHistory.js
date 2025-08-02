@@ -162,7 +162,7 @@ export default function SalesHistory() {
                 <div className="mt-6 lg:mt-0">
                     <Link
                         href="/sales/new"
-                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-lg shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-200 hover:scale-105"
+                        className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md shadow-green-500/25 hover:shadow-xl hover:shadow-green-500/30 transition-all duration-200 hover:scale-105"
                     >
                         <Plus className="h-5 w-5 mr-2"/>
                         New Sale
@@ -170,7 +170,7 @@ export default function SalesHistory() {
                 </div>
             </div>
 
-            <div className="bg-white/80 backdrop-blur-sm min-h-[80vh] rounded-2xl shadow-lg border border-white/20">
+            <div className="bg-white/80 backdrop-blur-sm min-h-[80vh] rounded-2xl shadow-md border border-white/20">
                 <div className="p-6 border-b border-gray-100">
                     <div className="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-6">
                         <div className="flex-1">
@@ -239,7 +239,7 @@ export default function SalesHistory() {
                             <p className="text-gray-500 mb-6">Start recording your first sale to see it here.</p>
                             <Link
                                 href="/sales/new"
-                                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl transition-all duration-200"
                             >
                                 <Plus className="h-5 w-5 mr-2"/>
                                 Record First Sale
@@ -519,7 +519,7 @@ export default function SalesHistory() {
                                                 onClick={() => setPage(pageNum)}
                                                 className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                                                     page === pageNum
-                                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
+                                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25'
                                                         : 'text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 hover:text-gray-700'
                                                 }`}
                                             >

@@ -72,7 +72,7 @@ export default function ShopSelector({ onCreateShop }) {
 
                 {isOpen && (
                     <div
-                        className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
+                        className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-50 overflow-hidden">
                         <div className="py-1">
                             {shops.map((shop) => (
                                 <button

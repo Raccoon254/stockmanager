@@ -88,7 +88,7 @@ export default function Layout({ children }) {
                 </button>
                 
                 {showUserMenu && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-md z-50">
                     <div className="p-3 border-b border-gray-100">
                       <p className="text-sm font-medium text-gray-900">{session?.user?.name || 'User'}</p>
                       <p className="text-xs text-gray-500">{session?.user?.email}</p>
@@ -123,7 +123,7 @@ export default function Layout({ children }) {
           <div className={`fixed inset-y-0 left-0 flex w-72 flex-col bg-white/95 backdrop-blur-xl shadow-2xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200/50">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-md">
                   <ShoppingBag className="h-6 w-6 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
@@ -149,7 +149,7 @@ export default function Layout({ children }) {
                     href={item.href}
                     className={`group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                       isActive
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25'
                         : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
                     }`}
                     onClick={() => setSidebarOpen(false)}
@@ -200,7 +200,7 @@ export default function Layout({ children }) {
                     href={item.href}
                     className={`group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 ${
                       isActive
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 transform scale-[1.02]'
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 transform scale-[1.02]'
                         : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:transform hover:scale-[1.01]'
                     }`}
                   >
@@ -232,7 +232,7 @@ export default function Layout({ children }) {
                 </button>
                 
                 {showUserMenu && (
-                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg">
+                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-md">
                     <div className="p-1">
                       <button
                         onClick={() => setShowCreateShopModal(true)}

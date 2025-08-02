@@ -147,7 +147,7 @@ export default function PaymentMethodSelector({
 
             {isOpen && (
                 <div
-                    className="absolute z-[99999] w-full top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-80 overflow-y-auto">
+                    className="absolute z-[99999] w-full top-full mt-1 bg-white border border-gray-200 rounded-xl shadow-md max-h-80 overflow-y-auto">
                     {paymentMethods.map((method) => {
                         const IconComponent = method.icon
                         return (

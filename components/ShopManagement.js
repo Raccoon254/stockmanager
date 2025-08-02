@@ -84,7 +84,7 @@ export default function ShopManagement() {
         <div className="mt-6 lg:mt-0">
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-md shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
           >
             <Plus className="h-5 w-5 mr-2" />
             Create Shop
@@ -94,7 +94,7 @@ export default function ShopManagement() {
 
       {/* Shops Grid */}
       {shops.length === 0 ? (
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-12 text-center">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-12 text-center">
           <div className="p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl w-20 h-20 mx-auto mb-6 flex items-center justify-center">
             <ShoppingBag className="h-10 w-10 text-blue-600" />
           </div>
@@ -102,7 +102,7 @@ export default function ShopManagement() {
           <p className="text-gray-600 mb-6">Create your first shop to get started with inventory management</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-md shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-200 hover:scale-105"
           >
             <Plus className="h-5 w-5 mr-2" />
             Create Your First Shop
@@ -113,7 +113,7 @@ export default function ShopManagement() {
           {shops.map((shop) => (
             <div
               key={shop.id}
-              className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 transition-all duration-200 hover:shadow-xl hover:scale-[1.02] ${
+              className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6 transition-all duration-200 hover:shadow-xl hover:scale-[1.02] ${
                 currentShop?.id === shop.id ? 'ring-2 ring-blue-500 border-blue-200 shadow-blue-500/25' : ''
               }`}
             >
