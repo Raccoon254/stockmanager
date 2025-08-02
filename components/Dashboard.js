@@ -11,16 +11,13 @@ import {
     Star,
     Clock,
     ArrowUpRight,
-    Store,
-    BarChart3,
     PieChart,
     MapPin,
     Phone,
     Mail,
-    Calendar,
-    Target,
-    Percent, ShoppingBag
+    Percent, ShoppingBag, Plus
 } from 'lucide-react'
+import Link from 'next/link'
 import {formatLargeNumber} from "@/lib/formatter";
 
 export default function Dashboard() {
@@ -141,7 +138,7 @@ export default function Dashboard() {
             {/* Shop Header */}
             {stats?.shop && (
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
-                    <div className="px-6 py-6 border-b border-gray-100">
+                    <div className="px-6 py-6 flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
                                 <ShoppingBag className="h-6 w-6 text-white" />
@@ -151,27 +148,16 @@ export default function Dashboard() {
                                 <p className="text-gray-600">Store Dashboard</p>
                             </div>
                         </div>
-                    </div>
-                    <div className="px-6 py-4">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                            {stats.shop.address && (
-                                <div className="flex items-center space-x-2 text-gray-600">
-                                    <MapPin className="h-4 w-4" />
-                                    <span>{stats.shop.address}</span>
-                                </div>
-                            )}
-                            {stats.shop.phone && (
-                                <div className="flex items-center space-x-2 text-gray-600">
-                                    <Phone className="h-4 w-4" />
-                                    <span>{stats.shop.phone}</span>
-                                </div>
-                            )}
-                            {stats.shop.email && (
-                                <div className="flex items-center space-x-2 text-gray-600">
-                                    <Mail className="h-4 w-4" />
-                                    <span>{stats.shop.email}</span>
-                                </div>
-                            )}
+
+                        <div>
+                            <Link href="/sales/new" className="block">
+                                <button
+                                    className="px-4 w-full mb-1 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
+                                >
+                                    <Plus className="inline-block mr-2 h-4 w-4"/>
+                                    Create New Sale
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

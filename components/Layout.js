@@ -18,7 +18,6 @@ import {
   User,
   LogOut,
   Plus,
-  Settings
 } from 'lucide-react'
 import Image from "next/image";
 
@@ -42,6 +41,11 @@ const navigation = [
     name: 'Reports',
     href: '/reports',
     icon: BarChart,
+  },
+  {
+    name: 'Shops',
+    href: '/shops',
+    icon: ShoppingBag,
   },
 ]
 

@@ -20,15 +20,8 @@ import {
 } from 'lucide-react'
 import toast from '@/components/Toast'
 import {validateSaleForm} from '@/lib/validation'
+import PaymentMethodSelector from '@/components/PaymentMethodSelector'
 
-const paymentMethods = [
-    'Cash',
-    'Credit Card',
-    'Debit Card',
-    'Bank Transfer',
-    'Digital Wallet',
-    'Check'
-]
 
 export default function EditSaleForm({ saleId }) {
     const router = useRouter()
@@ -381,23 +374,15 @@ export default function EditSaleForm({ saleId }) {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                                     Payment Method *
                                 </label>
-                                <div className="relative">
-                                    <select
-                                        value={saleData.paymentMethod}
-                                        onChange={(e) => setSaleData(prev => ({
-                                            ...prev,
-                                            paymentMethod: e.target.value
-                                        }))}
-                                        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
-                                            errors.paymentMethod ? 'border-red-300 bg-red-50' : 'border-gray-200'
-                                        }`}
-                                    >
-                                        {paymentMethods.map(method => (
-                                            <option key={method} value={method}>{method}</option>
-                                        ))}
-                                    </select>
-                                    <CreditCard className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none"/>
-                                </div>
+                                <PaymentMethodSelector
+                                    value={saleData.paymentMethod}
+                                    onChange={(method) => setSaleData(prev => ({
+                                        ...prev,
+                                        paymentMethod: method
+                                    }))}
+                                    error={!!errors.paymentMethod}
+                                    allowCustom={true}
+                                />
                                 {errors.paymentMethod && <p className="mt-1 text-sm text-red-600">{errors.paymentMethod}</p>}
                             </div>
                         </div>

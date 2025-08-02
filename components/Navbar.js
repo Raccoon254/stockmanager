@@ -17,7 +17,8 @@ import {
     Info,
     Box,
     TrendingUpDown,
-    Eclipse
+    Eclipse,
+    ShoppingBag
 } from 'lucide-react'
 
 export default function Navbar() {
@@ -34,6 +35,7 @@ export default function Navbar() {
 
     const privateNavItems = [
         { name: 'Dashboard', href: '/dashboard', icon: Eclipse },
+        { name: 'Shops', href: '/shops', icon: ShoppingBag },
         { name: 'Sales', href: '/sales', icon: ShoppingCart },
         { name: 'Inventory', href: '/inventory', icon: Box },
         { name: 'Reports', href: '/reports', icon: TrendingUpDown },

@@ -20,15 +20,8 @@ import {
 } from 'lucide-react'
 import toast from '@/components/Toast'
 import {validateSaleForm} from '@/lib/validation'
+import PaymentMethodSelector from '@/components/PaymentMethodSelector'
 
-const paymentMethods = [
-    'Cash',
-    'Credit Card',
-    'Debit Card',
-    'Bank Transfer',
-    'Digital Wallet',
-    'Check'
-]
 
 export default function SalesForm() {
     const router = useRouter()
@@ -304,7 +297,7 @@ export default function SalesForm() {
             <form onSubmit={handleSubmit} className="space-y-8">
                 {/* Customer & Payment Info */}
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 z-40 relative backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl">
@@ -336,24 +329,15 @@ export default function SalesForm() {
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                                     Payment Method *
                                 </label>
-                                <div className="relative">
-                                    <select
-                                        value={saleData.paymentMethod}
-                                        onChange={(e) => setSaleData(prev => ({
-                                            ...prev,
-                                            paymentMethod: e.target.value
-                                        }))}
-                                        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 ${
-                                            errors.paymentMethod ? 'border-red-300 bg-red-50' : 'border-gray-200'
-                                        }`}
-                                    >
-                                        {paymentMethods.map(method => (
-                                            <option key={method} value={method}>{method}</option>
-                                        ))}
-                                    </select>
-                                    <CreditCard
-                                        className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none"/>
-                                </div>
+                                <PaymentMethodSelector
+                                    value={saleData.paymentMethod}
+                                    onChange={(method) => setSaleData(prev => ({
+                                        ...prev,
+                                        paymentMethod: method
+                                    }))}
+                                    error={!!errors.paymentMethod}
+                                    allowCustom={true}
+                                />
                                 {errors.paymentMethod &&
                                     <p className="mt-1 text-sm text-red-600">{errors.paymentMethod}</p>}
                             </div>
@@ -363,7 +347,7 @@ export default function SalesForm() {
 
                 {/* Item Search & Selection */}
                 <div
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                    className="bg-white/80 z-10 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                     <div className="px-6 py-6 border-b border-gray-100">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl">
@@ -429,7 +413,7 @@ export default function SalesForm() {
 
                             {showSearch && searchResults.length === 0 && searchTerm.length >= 2 && (
                                 <div
-                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-6">
+                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-md p-6">
                                     <div className="text-center">
                                         <Package className="h-12 w-12 text-gray-300 mx-auto mb-3"/>
                                         <p className="text-gray-500 font-medium">No items found matching
@@ -442,7 +426,7 @@ export default function SalesForm() {
 
                             {searchTerm.length > 0 && searchTerm.length < 2 && (
                                 <div
-                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg p-4">
+                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-md p-4">
                                     <p className="text-gray-500 text-center text-sm">Type at least 2 characters to
                                         search...</p>
                                 </div>
@@ -525,7 +509,7 @@ export default function SalesForm() {
                 {/* Sale Summary */}
                 {saleData.items.length > 0 && (
                     <div
-                        className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 overflow-hidden">
+                        className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
                         <div className="px-6 py-6 border-b border-gray-100">
                             <h3 className="text-xl font-semibold text-gray-900">Sale Summary</h3>
                         </div>
@@ -585,7 +569,7 @@ export default function SalesForm() {
                     <button
                         type="submit"
                         disabled={saving || success || saleData.items.length === 0}
-                        className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-medium rounded-xl shadow-md hover:shadow-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {saving ? (
                             <>
