@@ -129,7 +129,7 @@ export default function Dashboard() {
             {/* Shop Header */}
             {stats?.shop && (
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 overflow-hidden">
-                    <div className="px-6 py-6 flex items-center justify-between">
+                    <div className="px-6 py-6 flex flex-col md:flex-row space-y-3 md:items-center justify-between">
                         <div className="flex items-center space-x-3">
                             <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl">
                                 <ShoppingBag className="h-6 w-6 text-white" />
@@ -360,51 +360,6 @@ export default function Dashboard() {
                             </div>
                         )}
                     </div>
-                </div>
-            </div>
-
-            {/* Sales Trend Chart */}
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20">
-                <div className="px-6 py-6 border-b border-gray-100">
-                    <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl">
-                            <TrendingUp className="h-5 w-5 text-white"/>
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900">
-                            Sales Trend (Last 7 Days)
-                        </h3>
-                    </div>
-                </div>
-                <div className="px-6 py-6">
-                    {stats?.salesTrend && stats.salesTrend.length > 0 ? (
-                        <div className="space-y-4">
-                            {stats.salesTrend.map((day, index) => (
-                                <div key={day.date} className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-3">
-                                        <div className="text-sm font-medium text-gray-600 w-20">
-                                            {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
-                                        </div>
-                                        <div className="flex-1 bg-gray-200 rounded-full h-2 max-w-xs">
-                                            <div 
-                                                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full transition-all duration-300"
-                                                style={{ 
-                                                    width: `${Math.max(5, (Number(day.sales) / Math.max(...stats.salesTrend.map(d => Number(d.sales)))) * 100)}%` 
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                    <div className="text-sm font-semibold text-gray-900">
-                                        {formatLargeNumber(`KSH ${Number(day.sales).toFixed(2)}`)}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="text-center py-8">
-                            <TrendingUp className="h-12 w-12 text-gray-300 mx-auto mb-4"/>
-                            <p className="text-gray-500">No sales data available</p>
-                        </div>
-                    )}
                 </div>
             </div>
 

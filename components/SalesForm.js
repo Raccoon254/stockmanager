@@ -371,7 +371,7 @@ export default function SalesForm() {
 
                             {showSearch && searchResults.length > 0 && (
                                 <div
-                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl max-h-64 overflow-y-auto">
+                                    className="z-20 w-full mt-2 bg-white border border-gray-200 rounded-xl max-h-64 overflow-y-auto">
                                     <div
                                         className="p-2 border-b border-gray-100 bg-gray-50 text-sm font-medium text-gray-600">
                                         Click to add items to your sale
