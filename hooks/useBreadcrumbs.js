@@ -58,7 +58,7 @@ export function useBreadcrumbs() {
     analyticsInventoryValue: () => [
       createBreadcrumbItem('Dashboard', '/dashboard', Home),
       createBreadcrumbItem('Analytics', '/analytics', BarChart),
-      createBreadcrumbItem('Inventory Value', '/analytics/inventory-value', Package),
+      createBreadcrumbItem('Inventory', '/analytics/inventory-value', Package),
     ],
     
     // Shops

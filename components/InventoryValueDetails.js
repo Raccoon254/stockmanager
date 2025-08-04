@@ -133,17 +133,11 @@ export default function InventoryValueDetails() {
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div>
                     <div className="flex items-center space-x-4 mb-2">
-                        <Link
-                            href="/dashboard"
-                            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
-                        >
-                            <ArrowLeft className="h-5 w-5"/>
-                        </Link>
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
                             Inventory Value Analysis
                         </h1>
                     </div>
-                    <p className="text-lg text-gray-600 ml-14">
+                    <p className="text-lg text-gray-600">
                         Comprehensive breakdown of your inventory value and potential
                     </p>
                 </div>
@@ -159,10 +153,10 @@ export default function InventoryValueDetails() {
             </div>
 
             {/* Summary Statistics */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
-                    <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-gradient-to-r from-blue-100 to-blue-200 rounded-xl">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-4 md:p-6">
+                    <div className="flex md:items-center space-x-2 flex-col md:flex-row md:space-x-4">
+                        <div className="p-3 aspect-square h-12 w-12 bg-gradient-to-r from-blue-100 to-blue-200 rounded-xl">
                             <Package className="h-6 w-6 text-blue-600"/>
                         </div>
                         <div>
@@ -174,9 +168,9 @@ export default function InventoryValueDetails() {
                     </div>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
-                    <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-gradient-to-r from-green-100 to-green-200 rounded-xl">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-4 md:p-6">
+                    <div className="flex md:items-center space-x-2 flex-col md:flex-row md:space-x-4">
+                        <div className="p-3 aspect-square h-12 w-12 bg-gradient-to-r from-green-100 to-green-200 rounded-xl">
                             <TrendingUp className="h-6 w-6 text-green-600"/>
                         </div>
                         <div>
@@ -188,9 +182,9 @@ export default function InventoryValueDetails() {
                     </div>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
-                    <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-4 md:p-6">
+                    <div className="flex md:items-center space-x-2 flex-col md:flex-row md:space-x-4">
+                        <div className="p-3 aspect-square h-12 w-12 bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl">
                             <Eclipse className="h-6 w-6 text-purple-600"/>
                         </div>
                         <div>
@@ -200,9 +194,9 @@ export default function InventoryValueDetails() {
                     </div>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-6">
-                    <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl">
+                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-md border border-white/20 p-4 md:p-6">
+                    <div className="flex md:items-center space-x-2 flex-col md:flex-row md:space-x-4">
+                        <div className="p-3 aspect-square h-12 w-12 bg-gradient-to-r from-orange-100 to-orange-200 rounded-xl">
                             <Calculator className="h-6 w-6 text-orange-600"/>
                         </div>
                         <div>
