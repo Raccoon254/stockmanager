@@ -20,6 +20,7 @@ import {
 import Link from 'next/link'
 import {formatLargeNumber} from "@/lib/formatter";
 import DashboardSkeleton from "@/components/DashboardSkeleton";
+import SalesTrendChart from "@/components/SalesTrendChart";
 
 export default function Dashboard() {
     const { currentShop } = useShop()
@@ -182,7 +183,7 @@ export default function Dashboard() {
                             case 'Low Stock Alert':
                                 return '/analytics/low-stock'
                             case "Today's Profit":
-                                return '/analytics/todays-profit'
+                                return '/analytics/profit'
                             default:
                                 return null // No route available yet
                         }
@@ -255,6 +256,9 @@ export default function Dashboard() {
                     }
                 })}
             </div>
+
+            {/* Sales Trend Chart */}
+            <SalesTrendChart className="col-span-full" />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div

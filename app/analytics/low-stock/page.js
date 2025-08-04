@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useShop } from '@/contexts/ShopContext'
 import Layout from '@/components/Layout'
 import LowStockDetails from '@/components/LowStockDetails'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { Loader2 } from 'lucide-react'
 
 export default function LowStockPage() {
@@ -52,8 +53,11 @@ export default function LowStockPage() {
     )
   }
 
+  const breadcrumbs = useBreadcrumbs()
+  const breadcrumbItems = breadcrumbs.analyticsLowStock()
+
   return (
-    <Layout>
+    <Layout breadcrumbItems={breadcrumbItems}>
       <LowStockDetails />
     </Layout>
   )

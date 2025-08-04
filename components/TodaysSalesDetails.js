@@ -17,6 +17,7 @@ import {
     Plus, BarChart
 } from 'lucide-react'
 import {formatLargeNumber} from '@/lib/formatter'
+import SalesTrendChart from '@/components/SalesTrendChart'
 
 export default function TodaysSalesDetails() {
     const {currentShop} = useShop()
@@ -213,6 +214,14 @@ export default function TodaysSalesDetails() {
                     </div>
                 </div>
             </div>
+
+            {/* Sales Trend Chart */}
+            <SalesTrendChart 
+                title="Sales Trend (Last 7 Days)"
+                className="col-span-full"
+                showTotal={true}
+                height={250}
+            />
 
             {/* Additional Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

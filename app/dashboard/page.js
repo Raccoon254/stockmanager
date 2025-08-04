@@ -53,7 +53,7 @@ export default function DashboardPage() {
     }
 
     return (
-        <Layout>
+        <Layout showBreadcrumbs={false}>
             <Dashboard/>
         </Layout>
     )

@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import {formatLargeNumber} from '@/lib/formatter'
 import DateRangeSelector from '@/components/DateRangeSelector'
+import SalesTrendChart from '@/components/SalesTrendChart'
 
 export default function ProfitAnalysisDetails() {
     const {currentShop} = useShop()
@@ -38,7 +39,7 @@ export default function ProfitAnalysisDetails() {
         try {
             setLoading(true)
 
-            const response = await fetch(`/api/profit-analysis?shopId=${currentShop.id}&timeframe=${timeframe}`)
+            const response = await fetch(`/api/profit/analysis?shopId=${currentShop.id}&timeframe=${timeframe}`)
             if (!response.ok) throw new Error('Failed to fetch profit analysis data')
 
             const data = await response.json()
@@ -110,18 +111,12 @@ export default function ProfitAnalysisDetails() {
             {/* Header */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                    <div className="flex items-center space-x-4 mb-2">
-                        <Link
-                            href="/dashboard"
-                            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
-                        >
-                            <ArrowLeft className="h-5 w-5"/>
-                        </Link>
+                    <div className="mb-2">
                         <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
                             {getTimeframeLabel(timeframe)} Profit Analysis
                         </h1>
                     </div>
-                    <p className="text-lg text-gray-600 ml-14">
+                    <p className="text-lg text-gray-600">
                         Comprehensive breakdown of your profit performance and trends
                     </p>
                 </div>
@@ -198,6 +193,14 @@ export default function ProfitAnalysisDetails() {
                     </div>
                 </div>
             </div>
+
+            {/* Sales Trend Chart */}
+            <SalesTrendChart 
+                title="Sales Trend (Last 7 Days)"
+                className="col-span-full"
+                showTotal={true}
+                height={250}
+            />
 
             {/* Additional Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

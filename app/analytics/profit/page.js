@@ -4,9 +4,10 @@ import { useSession } from 'next-auth/react'
 import { useShop } from '@/contexts/ShopContext'
 import Layout from '@/components/Layout'
 import ProfitAnalysisDetails from '@/components/ProfitAnalysisDetails'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { Loader2 } from 'lucide-react'
 
-export default function TodaysProfitPage() {
+export default function ProfitAnalysisPage() {
   const { data: session, status } = useSession()
   const { shops, currentShop, loading: shopsLoading } = useShop()
 
@@ -31,8 +32,11 @@ export default function TodaysProfitPage() {
     )
   }
 
+  const breadcrumbs = useBreadcrumbs()
+  const breadcrumbItems = breadcrumbs.analyticsProfit()
+
   return (
-    <Layout>
+    <Layout breadcrumbItems={breadcrumbItems}>
       <ProfitAnalysisDetails />
     </Layout>
   )

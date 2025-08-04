@@ -5,6 +5,7 @@ import { useShop } from '@/contexts/ShopContext'
 import Layout from '@/components/Layout'
 import ShopManagement from '@/components/ShopManagement'
 import NoShopsState from '@/components/NoShopsState'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { Loader2 } from 'lucide-react'
 
 export default function ShopsPage() {
@@ -32,8 +33,11 @@ export default function ShopsPage() {
     )
   }
 
+  const breadcrumbs = useBreadcrumbs()
+  const breadcrumbItems = breadcrumbs.shops()
+
   return (
-    <Layout>
+    <Layout breadcrumbItems={breadcrumbItems}>
       <ShopManagement />
     </Layout>
   )

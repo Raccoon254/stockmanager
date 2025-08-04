@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useShop } from '@/contexts/ShopContext'
 import Layout from '@/components/Layout'
 import TodaysSalesDetails from '@/components/TodaysSalesDetails'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { Loader2 } from 'lucide-react'
 
 export default function TodaysSalesPage() {
@@ -31,8 +32,11 @@ export default function TodaysSalesPage() {
     )
   }
 
+  const breadcrumbs = useBreadcrumbs()
+  const breadcrumbItems = breadcrumbs.analyticsSales()
+
   return (
-    <Layout>
+    <Layout breadcrumbItems={breadcrumbItems}>
       <TodaysSalesDetails />
     </Layout>
   )

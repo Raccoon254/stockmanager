@@ -7,6 +7,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { useShop } from '@/contexts/ShopContext'
 import ShopSelector from './ShopSelector'
 import CreateShopModal from './CreateShopModal'
+import Breadcrumb from './Breadcrumb'
 import { 
   Home, 
   Package, 
@@ -49,7 +50,7 @@ const navigation = [
   },
 ]
 
-export default function Layout({ children }) {
+export default function Layout({ children, breadcrumbItems = null, showBreadcrumbs = true }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showCreateShopModal, setShowCreateShopModal] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
@@ -66,7 +67,7 @@ export default function Layout({ children }) {
       <div className="">
         {/* Mobile header */}
         <div className="lg:hidden">
-          <div className="flex items-center justify-between bg-white/80 backdrop-blur-xl px-4 py-4 shadow-sm border-b border-white/20">
+          <div className="relative z-50 flex items-center justify-between bg-white/80 backdrop-blur-xl px-4 py-4 shadow-sm border-b border-white/20">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
                 <ShoppingBag className="h-5 w-5 text-white" />
@@ -88,7 +89,7 @@ export default function Layout({ children }) {
                 </button>
                 
                 {showUserMenu && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-md z-50">
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-md z-[99999]">
                     <div className="p-3 border-b border-gray-100">
                       <p className="text-sm font-medium text-gray-900">{session?.user?.name || 'User'}</p>
                       <p className="text-xs text-gray-500">{session?.user?.email}</p>
@@ -257,8 +258,14 @@ export default function Layout({ children }) {
         </div>
 
         {/* Main content */}
-        <main className="lg:pl-76 lg:pr-4 lg:py-4">
+        <main className="lg:pl-76 lg:pr-4 py-4">
           <div className="px-4 sm:px-6 lg:px-0">
+            {/* Breadcrumbs */}
+            {showBreadcrumbs && (
+              <div className="mb-6">
+                <Breadcrumb customItems={breadcrumbItems} />
+              </div>
+            )}
             {children}
           </div>
         </main>
