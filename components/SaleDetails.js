@@ -107,17 +107,11 @@ export default function SaleDetails({ saleId }) {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
           <div className="flex items-center space-x-4 mb-2">
-            <Link 
-              href="/sales"
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
               Sale #{sale.id}
             </h1>
           </div>
-          <p className="text-lg text-gray-600 ml-14">
+          <p className="text-lg text-gray-600">
             Sale completed on {formatDate(sale.createdAt)}
           </p>
         </div>
